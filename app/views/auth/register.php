@@ -49,11 +49,6 @@
         </p>
 
         <p>
-            <label for="address">Adresse:</label>
-            <textarea name="address" rows="4" required></textarea>
-        </p>
-
-        <p>
             <label for="phone">Numéro de téléphone:</label>
             <input type="tel" name="phone" required>
         </p>

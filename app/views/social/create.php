@@ -1,4 +1,4 @@
-<!-- app/views/posts/create.php -->
+<!-- app/views/social/create.php -->
 
 <!DOCTYPE html>
 <html lang="en">
