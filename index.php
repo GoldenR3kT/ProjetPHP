@@ -14,14 +14,14 @@ if (!$conn) {
 echo "Connected successfully";
 
 // Exemple de requête
-$sql = "SELECT id_user, nom, email FROM users";
+$sql = "SELECT IDuser, Nom, Email FROM USERS";
 $result = mysqli_query($conn, $sql);
 
 // Vérifier si la requête a réussi
 if ($result) {
     // Parcourir les résultats
     while ($row = mysqli_fetch_assoc($result)) {
-        echo "\nID: " . $row["id_user"] . " - Nom: " . $row["nom"] . " - Email: " . $row["email"] . "\n";
+        echo "\nID: " . $row["IDuser"] . " - Nom: " . $row["Nom"] . " - Email: " . $row["Email"] . "\n";
     }
 } else {
     echo "Erreur de requête: " . mysqli_error($conn);
