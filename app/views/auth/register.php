@@ -17,7 +17,7 @@
         <div class="alert alert-danger"><?php echo $error; ?></div>
     <?php endif; ?>
 
-    <form action="/register/process" method="post">
+    <form method="post" action="../../controllers/process.php">
     <p>
             <label for="email">Email:</label>
             <input type="email" name="email" required>
@@ -53,7 +53,7 @@
             <input type="tel" name="phone" required>
         </p>
 
-        <button type="submit">Inscription</button>
+        <button name="registry" type="submit">Inscription</button>
     </form>
 
     <p>Vous avez déja un compte? <a href="./login.php">Connectez vous ici</a></p>
