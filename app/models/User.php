@@ -26,7 +26,7 @@ class User
         $this->phone = mysqli_real_escape_string($this->db->getConnection(), $phone);
         $this->birthdate = mysqli_real_escape_string($this->db->getConnection(), $birthdate);
     }
-    
+
     // Méthode pour enregistrer un nouvel utilisateur
     public function save()
     {
@@ -54,3 +54,15 @@ class User
     }
 
 }
+
+
+// Utilisation des classes
+$database = new Database("localhost", "root", "", "projet_php");
+$User = new User($database);
+
+// Définir les données utilisateur
+$User->setUserData("Nom", "Prenom", "test@example.com", "motdepasse", 1, "0123456789", "2000-01-01");
+
+// Enregistrer l'utilisateur
+$User->save();
+?>
