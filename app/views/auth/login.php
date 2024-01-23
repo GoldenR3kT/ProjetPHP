@@ -31,7 +31,7 @@
         <button type="submit">Connection</button>
     </form>
 
-    <p>Vous n'avez pas de compte? <a href="/app/views/auth/register.php">Inscrivez vous ici</a></p>
+    <p>Vous n'avez pas de compte? <a href="./register.php">Inscrivez vous ici</a></p>
 </div>
 
 </body>

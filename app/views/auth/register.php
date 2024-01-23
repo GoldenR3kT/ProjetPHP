@@ -17,8 +17,8 @@
         <div class="alert alert-danger"><?php echo $error; ?></div>
     <?php endif; ?>
 
-    <form action="/register" method="post">
-        <p>
+    <form action="/register/process" method="post">
+    <p>
             <label for="email">Email:</label>
             <input type="email" name="email" required>
         </p>
@@ -56,7 +56,7 @@
         <button type="submit">Inscription</button>
     </form>
 
-    <p>Vous avez déja un compte? <a href="/app/views/auth/login.php">Connectez vous ici</a></p>
+    <p>Vous avez déja un compte? <a href="./login.php">Connectez vous ici</a></p>
 </div>
 
 </body>
