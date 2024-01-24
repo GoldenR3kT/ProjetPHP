@@ -26,5 +26,16 @@ if (isset($_POST['connexion'])) {
     }
 }
 
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('Location: ../views/auth/logout.php');
+}
 
+if (isset($_POST['friends'])) {
+    header('Location: ../views/social/friends.php');
+}
+
+if (isset($_POST['new_post'])) {
+    header('Location: ../views/social/create.php');
+}
 ?>

@@ -1,15 +1,33 @@
-<!-- app/views/social/create.php -->
-
+<!-- app/views/posts/create.php -->
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Créer un post</title>
+    <!-- ... autres balises head ... -->
     <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../../friends_icon.css">
+    <link rel="stylesheet" href="../../logout_icon.css">
+    <link rel="stylesheet" href="../../profil_icon.css">
 </head>
 <body>
-
+<div class="profile-button button">
+    <form action="../../controllers/process.php" method="post">
+        <button type="submit" name="logout"><i class="gg-profile"></i></button>
+    </form>
+</div>
+<div class="logout-button button">
+    <form action="../../controllers/process.php" method="post">
+        <button type="submit" name="logout"><i class="gg-log-out"></i></button>
+    </form>
+</div>
+<h1>MyGram</h1>
+<div class="friends-button button">
+    <form action="../../controllers/process.php" method="post">
+        <button type="submit" name="friends"><i class="gg-user-list"></i></button>
+    </form>
+</div>
 <div class="container">
     <h2>Créer un post</h2>
 

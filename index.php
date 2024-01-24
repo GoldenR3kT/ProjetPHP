@@ -1,6 +1,6 @@
 <?php
 
-header('Location: ./app/views/auth/register.php');
+header('Location: ./app/views/auth/login.php');
 session_start();
 
 // Obtenez le chemin de l'URL après le nom de domaine

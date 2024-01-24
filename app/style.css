@@ -4,6 +4,15 @@ body, h1, h2, h3, p, ul, ol, li {
     padding: 0;
 }
 
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+    font-family: 'Pacifico', cursive; /* Ajout de la police d'écriture */
+}
+
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -128,3 +137,114 @@ form {
 label {
     color: #555;
 }
+
+
+.logout-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.logout-button form {
+    margin: 0; /* Supprime la marge par défaut du formulaire */
+}
+
+.logout-button button {
+    padding: 12px 20px;
+    background-color: #e74c3c;
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button button:hover {
+    background-color: #c0392b;
+}
+
+.friends-button {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+}
+
+.friends-button button {
+    display: inline-block;
+    padding: 15px;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.friends-button button:hover {
+    background-color: #2980b9;
+}
+
+.profile-button {
+    position: absolute;
+    top: 20px;
+    right: 60px;
+    transform: translate(0, -50%);
+}
+
+.profile-button button {
+    display: inline-block;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.profile-button button i {
+    color: #fff;
+    font-size: 18px;
+}
+
+.profile-button button:hover {
+    background-color: #2980b9;
+}
+
+.friend {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.friend img {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.friend button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.friend button:hover {
+    background-color: #c0392b;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px; /* Espacement entre les boutons */
+}
+
+/* Ajoutez ce style pour centrer les boutons verticalement */
+.action-buttons form {
+    display: flex;
+    align-items: center;
+}
+

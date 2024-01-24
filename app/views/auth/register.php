@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
+<h1>MyGram</h1>
 
 <div class="container">
     <h2>Inscription</h2>
