@@ -1,25 +1,30 @@
 <?php
-// Inclure la classe UserManager
-require_once 'AuthController.php';
+session_start();
 
-// Inclure la classe PostController
+require_once 'AuthController.php';
 require_once 'PostController.php';
 
-// Vérifier si le formulaire a été soumis
+// Gérer les actions en fonction des formulaires soumis
 if (isset($_POST['registry'])) {
-    // Créer une instance de UserManager
     $AuthController = new AuthController();
-
-    // Appeler la fonction register de UserManager
     $AuthController->register();
 }
 
 if (isset($_POST['connexion'])) {
-    // Créer une instance de UserManager
-    $AuthController = new AuthController();
 
-    // Appeler la fonction register de UserManager
-    $AuthController->login();
+    $AuthController = new AuthController();
+    $user = $AuthController->login();
+    // Si l'utilisateur est connecté, récupérer les posts et les stocker en session
+    if ($user) {
+        $postController = new PostController();
+        $posts = $postController->index();
+        print_r($posts);
+        $_SESSION['posts'] = $posts;
+
+        header('Location: ../views/social/home.php'); // Remplacez index.php par le nom de votre vue
+        exit;
+    }
 }
+
 
 ?>

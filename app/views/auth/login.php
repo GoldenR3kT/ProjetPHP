@@ -5,13 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connection</title>
-    <link rel="stylesheet" href="/public/css/style.css">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
 
 <div class="container">
-    <h2>Connection</h2>
+    <h2>Connexion</h2>
 
     <?php if (isset($error)): ?>
         <div class="alert alert-danger"><?php echo $error; ?></div>
@@ -28,7 +28,7 @@
             <input type="password" name="password" required>
         </p>
 
-        <button name= "connexion" type="submit">Connection</button>
+        <button name= "connexion" type="submit">Connexion</button>
     </form>
 
     <p>Vous n'avez pas de compte? <a href="./register.php">Inscrivez vous ici</a></p>

@@ -1,12 +1,12 @@
 <!-- app/views/posts/index.php -->
-
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posts</title>
-    <link rel="stylesheet" href="/public/css/style.css">
+    <!-- ... autres balises head ... -->
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
 
@@ -14,27 +14,29 @@
     <h2>Posts</h2>
 
     <?php
-    foreach ($posts as $post): ?>
-        <div class="post">
-            <h3><?php echo $post->title; ?></h3>
+    // Vérifier si la variable $posts est définie dans la session
+    if (isset($_SESSION['posts'])) {
+        $posts = $_SESSION['posts'];
+        foreach ($posts as $post): ?>
+            <div class="post">
+                <h3><?php echo $post['titre']; ?></h3>
 
-            <?php if ($post->photo): ?>
-                <img src="/uploads/<?php echo $post->photo; ?>" alt="Post Photo">
-            <?php endif; ?>
+                <?php if ($post['Img']): ?>
+                    <img src="/uploads/<?php echo $post['Img']; ?>" alt="Post Photo">
+                <?php endif; ?>
 
-            <p><?php echo $post->content; ?></p>
+                <p><?php echo $post['Message']; ?></p>
 
-            <p>Visibility: <?php echo $post->visibility; ?></p>
+                <p>Visibility: <?php echo $post['visibilite']; ?></p>
 
-            <p>Created at: <?php echo $post->created_at; ?></p>
-        </div>
-    <?php endforeach; ?>
+                <p>Created at: <?php echo $post['created_at']; ?></p>
+            </div>
+        <?php endforeach;
+    } else {
+    echo "<p>No posts available.</p>";
+    }
+    ?>
 
-    <div class="pagination">
-        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-            <a href="/posts?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-        <?php endfor; ?>
-    </div>
 
     <p><a href="./create.php">Create a new post</a></p>
 </div>

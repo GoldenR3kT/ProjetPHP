@@ -1,9 +1,13 @@
 <?php
+    define('ROOT_PATH', dirname(__DIR__));
 
+    require_once("Controller.php");
+    require_once(ROOT_PATH . '/models/Post.php');
 class PostController extends Controller
 {
     // Méthode pour afficher la liste des publications
-    public function index()
+
+    public static function index()
     {
         // Exemple basique de récupération des publications depuis la base de données
         $postsPerPage = 10; // Nombre de publications par page
@@ -12,12 +16,12 @@ class PostController extends Controller
 
         // Exemple basique d'utilisation d'un modèle pour récupérer les publications
         $posts = Post::getPaginatedPosts($offset, $postsPerPage);
-
+        //print_r($posts);
         // Exemple basique de calcul du nombre total de pages
         $totalPosts = Post::getTotalPosts();
         $totalPages = ceil($totalPosts / $postsPerPage);
 
-        return $this->view('posts.index', ['posts' => $posts, 'totalPages' => $totalPages]);
+        return $posts;
     }
 
     // Méthode pour afficher le formulaire de création de publication

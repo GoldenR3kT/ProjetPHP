@@ -38,7 +38,7 @@ class User
 
     }
 
-
+    
     // Méthode pour récupérer un utilisateur par son e-mail
     public static function getByEmail($email)
     {

@@ -1,7 +1,8 @@
 <?php
 
-    require_once("Controller.php");
-    require_once("../models/User.php");
+require_once("Controller.php");
+require_once("../models/User.php");
+
 class AuthController extends Controller
 {
 
@@ -25,18 +26,15 @@ class AuthController extends Controller
 
         // Exemple basique de validation (à adapter selon votre modèle)
         if ($user = User::getByEmail($email)) {
-            if (password_verify($password, $user->password))
-            {
+            if (password_verify($password, $user->password)) {
                 // Authentification réussie
                 $_SESSION['user_id'] = $user->id;
-                // Rediriger vers la page d'accueil ou une autre page après la connexion
-                header('Location: ../views/social/home.php');
-                exit;
+                return $user;
             }
         }
-
         // Si l'authentification échoue, afficher un message d'erreur
         return $this->view('auth/login', ['error' => 'Invalid email or password']);
+
     }
 
 

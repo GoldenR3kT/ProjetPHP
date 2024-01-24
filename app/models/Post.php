@@ -1,6 +1,5 @@
 <?php
 
-
 class Post
 {
 
@@ -38,24 +37,25 @@ class Post
     public static function getTotalPosts()
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("SELECT COUNT(*) FROM POST");
-        $stmt->execute([]);
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-
+        $stmt = $db->prepare("SELECT COUNT(*) AS count FROM POST");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'];
     }
+
 
     public static function getPaginatedPosts($offset, $limit)
     {
         // Logique pour récupérer les publications depuis la base de données
         // Utilisez une requête SQL pour obtenir les publications paginées
         $db = include('../Database.php');
-        $stmt = $db->prepare("SELECT * FROM posts LIMIT ?, ?");
-        $stmt->execute([$offset, $limit]);
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-
+        $stmt = $db->prepare("SELECT * FROM post LIMIT ?, ?");
+        $stmt->bindParam(1, $offset, PDO::PARAM_INT);
+        $stmt->bindParam(2, $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
 }
 
