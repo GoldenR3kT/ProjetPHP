@@ -22,17 +22,4 @@ if (isset($_POST['connexion'])) {
     $AuthController->login();
 }
 
-
-// Créer une instance de PostController
-$postController = new PostController();
-
-// Appeler la méthode index de PostController pour récupérer les données nécessaires
-$result = $postController->index();
-
-// Extraire les données de la résultat
-$posts = $result['posts'];
-$totalPages = $result['totalPages'];
-
-// Inclure la vue home.php
-include 'home.php';
 ?>

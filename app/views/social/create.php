@@ -17,7 +17,7 @@
         <div class="alert alert-danger"><?php echo $error; ?></div>
     <?php endif; ?>
 
-    <form action="/posts/create" method="post" enctype="multipart/form-data">
+    <form method="post" action="../../controllers/process.php">
         <p>
             <label for="title">Titre:</label>
             <input type="text" name="title" required>
@@ -41,7 +41,7 @@
             </select>
         </p>
 
-        <button type="submit">Créer un post</button>
+        <button name="poster" type="submit">Créer un post</button>
     </form>
 
     <p><a href="./home.php">Revenir a l'accueil</a></p>

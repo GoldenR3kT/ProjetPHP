@@ -62,7 +62,6 @@ class AuthController extends Controller
 
         $user->save(); // Enregistrement de l'utilisateur dans la base de données
 
-        echo "stp marche";
         // Rediriger vers la page de connexion après l'inscription
         header('Location: ../views/auth/login.php');
         exit;
