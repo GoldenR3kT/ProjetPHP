@@ -5,7 +5,6 @@ class Controller
     protected function view($view, $data=[])
     {
         // Inclure le fichier de vue
-        echo $data;
         require_once '../views/' . $view . '.php';
     }
 
