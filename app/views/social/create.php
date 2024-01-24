@@ -36,7 +36,6 @@
         <p>
             <label for="visibility">Visibilité:</label>
             <select name="visibility">
-                <option value="private">Privé</option>
                 <option value="friends">Amis</option>
                 <option value="public">Publique</option>
             </select>
@@ -45,7 +44,7 @@
         <button type="submit">Créer un post</button>
     </form>
 
-    <p><a href="/posts">Revenir a l'accueil</a></p>
+    <p><a href="./home.php">Revenir a l'accueil</a></p>
 </div>
 
 </body>

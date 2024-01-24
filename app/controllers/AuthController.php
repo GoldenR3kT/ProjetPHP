@@ -29,7 +29,7 @@ class AuthController extends Controller
                 // Authentification réussie
                 $_SESSION['user_id'] = $user->id;
                 // Rediriger vers la page d'accueil ou une autre page après la connexion
-                header('Location: ../views/social/create.php');
+                header('Location: ../views/social/home.php');
                 exit;
             }
         }
