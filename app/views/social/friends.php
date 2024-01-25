@@ -1,11 +1,16 @@
-<!-- app/views/friends.php -->
 <?php
 session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php'); // Rediriger l'utilisateur s'il n'est pas connecté
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../../style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amis</title>
@@ -27,35 +32,54 @@ session_start();
     </form>
 </div>
 <h1><a href="home.php" id="home" style="text-decoration: none; color: black;">MyGram</a></h1>
+
+    <title>Friends</title>
+</head>
+<h1>Friends List</h1>
 <div class="container">
-    <h2>Liste d'amis</h2>
+<?php
+if (isset($_SESSION['friends']) && !empty($_SESSION['friends'])): ?>
+    <ul>
+        <?php foreach ($_SESSION['friends'] as $friend): ?>
+            <li>
+                <?php echo $friend['Nom'] . ' ' . $friend['Prenom']; ?>
+                <form action="../../controllers/process.php" method="post">
+                    <input type="hidden" name="friend_id_to_remove" value="<?php echo $friend['IDuser']; ?>">
+                    <button type="submit" name="remove_friend">Remove</button>
+                </form>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <p>No friends yet.</p>
+<?php endif; ?>
 
-    <?php
-    // Simuler une liste d'amis (à remplacer par vos données réelles)
-    $users = array(
-        array('name' => 'Ami 1', 'photo' => 'profile1.jpg'),
-        array('name' => 'Ami 2', 'photo' => 'profile2.jpg'),
-        array('name' => 'Ami 3', 'photo' => 'profile3.jpg'),
-        array('name' => 'Ami 4', 'photo' => 'profile4.jpg'),
-        array('name' => 'Ami 5', 'photo' => 'profile5.jpg')
-    );
+<h2>Add Friends</h2>
+<!-- Form to add friends -->
+<form action="../../controllers/process.php" method="post">
+    <label for="search">Search:</label>
+    <input type="text" id="search" name="search">
+    <button type="submit" name="search_friends">Search</button>
+</form>
 
-    if (!empty($users)) {
-        foreach ($users as $user) {
-            echo '<div class="user">';
-            echo '<img src="/profile_images/' . $user['photo'] . '" alt="' . $user['name'] . '">';
-            echo '<span>' . $user['name'] . '</span>';
-            echo '<div class="delete-button">';
-            echo '<button type="submit" name="delete_friend"><i class="gg-trash"></i></button>';
-            echo '</div>';
-            echo '</div>';
-        }
-    } else {
-        echo '<p>Aucun ami pour le moment.</p>';
-    }
-    ?>
+<?php if (isset($_SESSION['search_results']) && !empty($_SESSION['search_results'])): ?>
+    <!-- Display search results -->
+    <h3>Search Results</h3>
+    <ul>
+        <?php foreach ($_SESSION['search_results'] as $result): ?>
+            <li>
 
-    <p><a href="./home.php">Retour à l'accueil</a></p>
+                <?php echo $result['Prenom']; echo"  "; echo $result['Nom']; ?>
+                <form action="../../controllers/process.php" method="post">
+                    <input type="hidden" name="friend_id" value="<?php echo $result['IDuser']; ?>">
+                    <button type="submit" name="add_friend">Add Friend</button>
+                </form>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+
+<p><a href="home.php">Back to Home</a></p>
 </div>
 </body>
 </html>

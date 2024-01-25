@@ -4,11 +4,16 @@ session_start();
 require_once 'AuthController.php';
 require_once 'PostController.php';
 require_once 'AdminController.php';
+require_once 'FriendshipController.php';
 require_once '../models/User.php';
 require_once '../models/Post.php';
+require_once '../models/Friendship.php';
+
+
 $postController = new PostController();
 $adminController = new AdminController();
 $AuthController = new AuthController();
+$friendshipController = new FriendshipController();
 
 // Gérer les actions en fonction des formulaires soumis
 if (isset($_POST['registry'])) {
@@ -45,9 +50,13 @@ if (isset($_POST['logout'])) {
     header('Location: ../views/auth/logout.php');
 }
 
+// Gérer les actions en fonction des formulaires soumis
 if (isset($_POST['friends'])) {
+    $_SESSION['friends'] = $friendshipController->index();
     header('Location: ../views/social/friends.php');
+    exit;
 }
+
 
 if (isset($_POST['new_post'])) {
     header('Location: ../views/social/create.php');
@@ -136,6 +145,7 @@ if (isset($_POST['delete_post'])) {
     header('Location: ../views/admin/admin_home.php');
 }
 
+
 if (isset($_POST['pagination'])) {
     $selectedPage = $_POST['pagination'];
 
@@ -147,6 +157,67 @@ if (isset($_POST['pagination'])) {
     header('Location: ../views/social/home.php?page=' . $selectedPage);
     exit;
 }
+
+// Dans ton fichier process.php
+
+if (isset($_POST['add_friend'])) {
+    // Assure-toi que l'utilisateur est connecté
+    if (isset($_SESSION['user_id'])) {
+        $userID = $_SESSION['user_id'];
+        $newFriendID = $_POST['friend_id'];
+
+        // Appelle la méthode du contrôleur pour ajouter un nouvel ami
+
+        $friendshipController->addFriend($userID, $newFriendID);
+
+
+        $_SESSION['friends'] = $friendshipController->index();
+        header('Location: ../views/social/friends.php');
+        exit;
+    } else {
+        // Redirige l'utilisateur vers la page de connexion s'il n'est pas connecté
+        header('Location: ../views/auth/login.php');
+        exit;
+    }
+}
+
+if (isset($_POST['remove_friend'])) {
+    // Assure-toi que l'utilisateur est connecté
+    if (isset($_SESSION['user_id'])) {
+        $userID = $_SESSION['user_id'];
+        $friendIDToRemove = $_POST['friend_id_to_remove'];
+
+        print_r($userID);
+        print_r($friendIDToRemove);
+        // Appelle la méthode du contrôleur pour supprimer un ami
+
+        $friendshipController->removeFriend($userID, $friendIDToRemove);
+
+        $_SESSION['friends'] = $friendshipController->index();
+        header('Location: ../views/social/friends.php');
+        exit;
+    } else {
+        // Redirige l'utilisateur vers la page de connexion s'il n'est pas connecté
+        header('Location: ../views/auth/login.php');
+        exit;
+    }
+}
+
+if (isset($_POST['search_friends'])) {
+    // Get the search term from the form
+    $searchTerm = $_POST['search'];
+
+    // Perform the search for users
+    $searchResults = $friendshipController->searchUsers($searchTerm);
+
+    // Store the search results in the session to be used in the view
+    $_SESSION['search_results'] = $searchResults;
+
+    // Redirect back to the friends page to display search results
+    header('Location: ../views/social/friends.php');
+    exit();
+}
+
 
 
 

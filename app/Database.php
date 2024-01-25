@@ -3,7 +3,7 @@
 $servername = "localhost"; // Adresse du serveur MySQL (peut être localhost)
 $username = "root"; // Nom d'utilisateur MySQL (par défaut, root pour XAMPP)
 $password = ""; // Mot de passe MySQL (celui que vous avez défini)
-$dbname = "projet php"; // Nom de votre base de données
+$dbname = "test"; // Nom de votre base de données
 
 $dsn = "mysql:host=$servername;dbname=$dbname;charset=utf8";
 

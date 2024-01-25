@@ -83,6 +83,22 @@ class User
         }
     }
 
+    public static function searchUsersByName($searchTerm)
+    {
+        $db = include('../Database.php'); // Obtenez la connexion à la base de données
+
+        // Requête SQL pour rechercher des utilisateurs par nom ou prénom
+        $sql = "SELECT * FROM USERS WHERE Nom LIKE ? OR Prenom LIKE ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$searchTerm, $searchTerm]);
+
+        // Récupérer les résultats de la recherche sous forme de tableau associatif
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Retourner les utilisateurs trouvés
+        return $users;
+    }
+
 }
 
 
