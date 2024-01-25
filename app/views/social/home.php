@@ -63,8 +63,9 @@ session_start();
                     </form>
 
                     <form action="../../controllers/process.php" method="post">
+                        <input type="hidden" name="postId" value="<?php echo $post['IDpost']; ?>">
                         <button name="dislike" type="submit">Dislike</button>
-                        <span>0</span>
+                        <span><?php echo $post['aimePas']; ?></span>
                     </form>
 
                     <form action="../../controllers/process.php" method="post">

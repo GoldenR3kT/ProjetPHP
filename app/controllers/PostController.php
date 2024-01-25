@@ -61,7 +61,8 @@ class PostController extends Controller
             'titre' => $title,
             'visibilite' => $visibility,
             'aime' => 0,  // Initialisez le nombre de likes à zéro
-            'author'=>$author
+            'author'=>$author,
+            'aimePas' => 0
         ];
 
         // Traitement du téléchargement de la photo

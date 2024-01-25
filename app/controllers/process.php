@@ -63,26 +63,56 @@ if (isset($_POST['poster'])) {
 }
 
 
+// Dans votre fichier process.php
 if (isset($_POST['like'])) {
-    // Récupérez l'ID du post sur lequel l'utilisateur a cliqué "Like"
     $postId = isset($_POST['postId']) ? $_POST['postId'] : null;
+    $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
-    // Si vous avez l'ID, procédez à l'incrémentation dans la base de données
-    if ($postId) {
-        Post::incrementLikes($postId);
+    // Vérifier si l'utilisateur a déjà aimé le post
+    $hasLiked = Post::hasLiked($postId, $userId);
+
+    if ($hasLiked) {
+        // Si l'utilisateur a déjà aimé, supprimer le like
+        Post::removeLike($postId, $userId);
+    } else {
+        // Sinon, ajouter le like
+        Post::addLike($postId, $userId);
     }
 
-    // Mettez à jour la variable de session ou récupérez à nouveau les posts de la base de données
-    // ...
-
+    // Mettre à jour la variable de session ou récupérer à nouveau les posts de la base de données
     $_SESSION['posts'] = Post::getPaginatedPosts(0, 10);
 
-    // Ajoutez un message de débogage
-    error_log("Session updated with latest posts: " . print_r($_SESSION['posts'], true));
-
-    // Redirigez l'utilisateur vers la même page après le traitement du bouton "like"
+    // Rediriger l'utilisateur vers la même page après le traitement du bouton "like"
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit;
 }
+
+// Dans votre fichier process.php
+if (isset($_POST['dislike'])) {
+    $postId = isset($_POST['postId']) ? $_POST['postId'] : null;
+    $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+
+    // Vérifier si l'utilisateur a déjà disliké le post
+    $hasDisliked = Post::hasDisliked($postId, $userId);
+
+    if ($hasDisliked) {
+        // Si l'utilisateur a déjà disliké, supprimer le dislike
+        Post::removeDislike($postId, $userId);
+    } else {
+        // Sinon, ajouter le dislike
+        Post::addDislike($postId, $userId);
+
+    }
+
+    // Mettre à jour la variable de session ou récupérer à nouveau les posts de la base de données
+    $_SESSION['posts'] = Post::getPaginatedPosts(0, 10);
+
+    // Rediriger l'utilisateur vers la même page après le traitement du bouton "dislike"
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit;
+}
+
+
+
 
 

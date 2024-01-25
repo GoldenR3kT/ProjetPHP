@@ -16,6 +16,7 @@ class Post
     public $like;
 
     public $author;
+    public $dislike;
 
 
     public function __construct($data)
@@ -28,6 +29,7 @@ class Post
         $this->visibility = $data['visibilite'];
         $this->like= $data['aime'];
         $this->author=$data['author'];
+        $this->dislike= $data['aimePas'];
     }
 
 
@@ -36,19 +38,10 @@ class Post
     public function save()
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("INSERT INTO POST (IDuser,Message, Img, titre, visibilite,aime,author) VALUES (?,?, ?, ?, ?, ?,?)");
-        $stmt->execute([$this->IDuser,$this->content, $this->photo, $this->title, $this->visibility, $this->like,$this->author]);
+        $stmt = $db->prepare("INSERT INTO POST (IDuser,Message, Img, titre, visibilite,aime,author,aimePas) VALUES (?,?, ?, ?, ?, ?,?,?)");
+        $stmt->execute([$this->IDuser,$this->content, $this->photo, $this->title, $this->visibility, $this->like,$this->author,$this->dislike]);
 
     }
-
-    public static function getName($IDuser)
-    {
-        $db = include('../Database.php');
-        $stmt = $db->prepare("SELECT DISTINCT users.Nom FROM post JOIN users ON post.IDuser = users.IDuser WHERE post.IDuser = ?");
-        $stmt->execute([$IDuser]);
-        return $stmt->fetchColumn();
-    }
-
 
     public static function getTotalPosts()
     {
@@ -72,17 +65,103 @@ class Post
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-// Dans votre classe Post
-    public static function incrementLikes($postId)
+    public static function hasLiked($postId, $userId)
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("UPDATE post SET aime = aime + 1 WHERE IDpost = ?");
+        $stmt = $db->prepare("SELECT id_like FROM post WHERE IDpost = ?");
         $stmt->execute([$postId]);
+        $likes = json_decode($stmt->fetchColumn(), true);
 
-        // Ajoutez un message de débogage
-        error_log("Likes incremented for post with ID: " . $postId);
+        return in_array($userId, $likes);
     }
 
+    public static function addLike($postId, $userId)
+    {
+        $db = include('../Database.php');
+        $stmt = $db->prepare("SELECT id_like FROM post WHERE IDpost = ?");
+        $stmt->execute([$postId]);
+        $likes = json_decode($stmt->fetchColumn(), true);
+
+        // Ajouter l'ID de l'utilisateur à la liste des likes
+        $likes[] = $userId;
+
+        // Mettre à jour la colonne id_like dans la table post
+        $stmt = $db->prepare("UPDATE post SET id_like = ? WHERE IDpost = ?");
+        $stmt->execute([json_encode($likes), $postId]);
+
+        // Ajouter un like au post
+        $stmt = $db->prepare("UPDATE post SET aime = aime + 1 WHERE IDpost = ?");
+        $stmt->execute([$postId]);
+    }
+
+    public static function removeLike($postId, $userId)
+    {
+        $db = include('../Database.php');
+        $stmt = $db->prepare("SELECT id_like FROM post WHERE IDpost = ?");
+        $stmt->execute([$postId]);
+        $likes = json_decode($stmt->fetchColumn(), true);
+
+        // Retirer l'ID de l'utilisateur de la liste des likes
+        $likes = array_diff($likes, [$userId]);
+
+        // Mettre à jour la colonne id_like dans la table post
+        $stmt = $db->prepare("UPDATE post SET id_like = ? WHERE IDpost = ?");
+        $stmt->execute([json_encode($likes), $postId]);
+
+        // Retirer un like au post
+        $stmt = $db->prepare("UPDATE post SET aime = aime - 1 WHERE IDpost = ?");
+        $stmt->execute([$postId]);
+    }
+
+    // Dans votre classe Post
+// Dans votre classe Post
+    public static function hasDisliked($postId, $userId)
+    {
+        $db = include('../Database.php');
+        $stmt = $db->prepare("SELECT id_dislikes FROM post WHERE IDpost = ?");
+        $stmt->execute([$postId]);
+        $disLikes = json_decode($stmt->fetchColumn(), true);
+
+        return in_array($userId, $disLikes);
+    }
+
+    public static function addDislike($postId, $userId)
+    {
+        $db = include('../Database.php');
+        $stmt = $db->prepare("SELECT id_dislikes FROM post WHERE IDpost = ?");
+        $stmt->execute([$postId]);
+        $dislikes = json_decode($stmt->fetchColumn(), true);
+
+        // Ajouter l'ID de l'utilisateur à la liste des dislikes
+        $dislikes[] = $userId;
+
+        // Mettre à jour la colonne id_dislike dans la table post
+        $stmt = $db->prepare("UPDATE post SET id_dislikes = ? WHERE IDpost = ?");
+        $stmt->execute([json_encode($dislikes), $postId]);
+
+        // Ajouter un dislike au post
+        $stmt = $db->prepare("UPDATE post SET aimePas = aimePas + 1 WHERE IDpost = ?");
+        $stmt->execute([$postId]);
+    }
+
+    public static function removeDislike($postId, $userId)
+    {
+        $db = include('../Database.php');
+        $stmt = $db->prepare("SELECT id_dislikes FROM post WHERE IDpost = ?");
+        $stmt->execute([$postId]);
+        $dislikes = json_decode($stmt->fetchColumn(), true);
+
+        // Retirer l'ID de l'utilisateur de la liste des dislikes
+        $dislikes = array_diff($dislikes, [$userId]);
+
+        // Mettre à jour la colonne id_dislike dans la table post
+        $stmt = $db->prepare("UPDATE post SET id_dislikes = ? WHERE IDpost = ?");
+        $stmt->execute([json_encode($dislikes), $postId]);
+
+        // Retirer un dislike au post
+        $stmt = $db->prepare("UPDATE post SET aimePas = aimePas - 1 WHERE IDpost = ?");
+        $stmt->execute([$postId]);
+    }
 
 
 }
