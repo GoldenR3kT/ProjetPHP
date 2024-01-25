@@ -18,6 +18,7 @@ class Post
 
     public function __construct($data)
     {
+        $this->IDuser = $data['IDuser'];
         $this->IDpost = $data['IDpost'];
         $this->content = $data['Message'];
         $this->photo = $data['Img'];
@@ -32,8 +33,8 @@ class Post
     public function save()
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("INSERT INTO POST (Message, Img, titre, visibilite,aime) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$this->content, $this->photo, $this->title, $this->visibility, $this->like]);
+        $stmt = $db->prepare("INSERT INTO POST (IDuser,Message, Img, titre, visibilite,aime) VALUES (?,?, ?, ?, ?, ?)");
+        $stmt->execute([$this->IDuser,$this->content, $this->photo, $this->title, $this->visibility, $this->like]);
     }
 
 

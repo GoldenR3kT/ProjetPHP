@@ -1,8 +1,11 @@
 <?php
-    define('ROOT_PATH', dirname(__DIR__));
+define('ROOT_PATH', dirname(__DIR__));
+require_once("Controller.php");
+require_once(ROOT_PATH . '/models/Post.php');
+require_once(ROOT_PATH . '/models/User.php');
+session_start();
 
-    require_once("Controller.php");
-    require_once(ROOT_PATH . '/models/Post.php');
+
 class PostController extends Controller
 {
     // Méthode pour afficher la liste des publications
@@ -41,8 +44,15 @@ class PostController extends Controller
         $title = htmlspecialchars($_POST['title']);
         $visibility = ($_POST['visibility'] === 'public') ? 'public' : 'friends';
 
+        if (isset($_SESSION['user_id'])) {
+            $id_user = $_SESSION['user_id'];
+        } else {
+            $id_user = null;
+        }
+
         // Création d'un tableau de données pour la publication
         $postData = [
+            'IDuser' => $id_user,
             'IDpost' => null,
             'Message' => $content,
             'Img' => null,  // Initialisez Img à null pour l'instant
@@ -71,9 +81,6 @@ class PostController extends Controller
         // Enregistrement de la publication dans la base de données
         if (!$error) {
             $post->save();
-
-            // Redirection après la création réussie
-            header('Location: ../views/social/home.php');
             return;
         } else {
             // Gestion de l'erreur (téléchargement de la photo ou enregistrement en base de données)
@@ -84,8 +91,6 @@ class PostController extends Controller
         include('../views/social/error_view.php');
         exit;
     }
-
-
 
 
     // Méthode pour afficher une publication spécifique
