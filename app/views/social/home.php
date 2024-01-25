@@ -14,7 +14,7 @@ session_start();
 <body>
 <div class="profile-button button">
     <form action="../../controllers/process.php" method="post">
-        <button type="submit" name="logout"><i class="gg-profile"></i></button>
+        <button type="submit" name="profile"><i class="gg-profile"></i></button>
     </form>
 </div>
 <div class="logout-button button">
@@ -40,8 +40,9 @@ session_start();
                 <h3><?php echo $post['titre']; ?></h3>
 
                 <?php if ($post['Img']): ?>
-                    <img src="../../../uploads/<?php echo $post['Img']; ?>" alt="Post Photo">
+                    <img class="post-image" src="../../../uploads/<?php echo $post['Img']; ?>" alt="Post Photo">
                 <?php endif; ?>
+
 
                 <p><?php echo $post['Message']; ?></p>
 

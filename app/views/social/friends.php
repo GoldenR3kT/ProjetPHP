@@ -23,7 +23,7 @@ if (!isset($_SESSION['user_id'])) {
 <body>
 <div class="profile-button button">
     <form action="../../controllers/process.php" method="post">
-        <button type="submit" name="logout"><i class="gg-profile"></i></button>
+        <button type="submit" name="profile"><i class="gg-profile"></i></button>
     </form>
 </div>
 <div class="logout-button button">
