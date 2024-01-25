@@ -29,13 +29,21 @@ body {
 
 .container {
     max-width: 800px;
-    margin: 80px auto 20px; /* Adjusted margin to make space for fixed header */
+    margin: 80px auto 20px;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: relative; /* Added relative positioning */
+    position: relative;
+    text-align: center; /* Centre le texte horizontalement */
 }
 
+
+.container img{
+    max-width: 2px; /* Largeur maximale de l'image à 100% de la largeur du conteneur parent */
+    height: 50%; /* Hauteur automatique pour maintenir les proportions de l'image */
+    margin-top: 2px;
+    align-content: center;
+}
 h2 {
     color: #333;
     top: 80px; /* Adjusted top position to match header height */
@@ -48,19 +56,38 @@ h2 {
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 20px;
-    z-index: 1; /* Ensure it appears above the background of h2 */
+    z-index: 1;
+    align-content: center;
+    text-align: left; /* Rétablit l'alignement du texte à gauche à l'intérieur des posts */
+}
+
+.post-image{
+    max-width: 100px; /* Largeur maximale de l'image à 100% de la largeur du conteneur parent */
+    height: 100px; /* Hauteur automatique pour maintenir les proportions de l'image */
+    margin-top: 100px;
+    align-content: center;
+}
+
+
+.post {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    align-content: center;
 }
 
 .post img {
-    max-width: 100%;
+    max-width: 50%;
     height: auto;
-    margin-top: 10px;
+    margin-top: 15px;
+    align-content: center;
 }
 
 .pagination {
     margin-top: 20px;
+    text-align: left;
 }
-
 .pagination button {
     display: inline-block;
     padding: 5px 10px;
@@ -86,6 +113,7 @@ h2 {
 /* Formulaire d'inscription */
 form {
     margin-top: 20px;
+    text-align: left;
 }
 
 label {
@@ -131,24 +159,13 @@ body {
 .container {
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    align-content: center;
 }
 
 h2, h3 {
     color: #333;
 }
 
-.post {
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin-bottom: 20px;
-    background-color: #fff;
-}
-
-.post img {
-    max-width: 100%;
-    height: auto;
-    margin-top: 15px;
-}
 
 .pagination button{
     background-color: #eee;
