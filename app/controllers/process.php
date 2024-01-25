@@ -5,6 +5,7 @@ require_once 'AuthController.php';
 require_once 'PostController.php';
 require_once 'AdminController.php';
 require_once 'FriendshipController.php';
+require_once 'CommController.php';
 require_once '../models/User.php';
 require_once '../models/Post.php';
 require_once '../models/Friendship.php';
