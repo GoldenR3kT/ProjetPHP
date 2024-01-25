@@ -39,7 +39,7 @@ if (isset($_POST['connexion'])) {
         } else {
             $posts = $postController->index(1);
             $_SESSION['posts'] = $posts;
-
+            
             $_SESSION['totalPages'] = $postController::getNbPages();
 
             header('Location: ../views/social/home.php');
@@ -295,6 +295,7 @@ if (isset($_POST['profile'])) {
     header('Location: ../views/social/profile.php');
 }
 
+
 if (isset($_POST['comment'])) {
     $postId = isset($_POST['postId']) ? $_POST['postId'] : null;
 
@@ -313,6 +314,60 @@ if (isset($_POST['addComment'])) {
     // Rediriger l'utilisateur vers la page des commentaires après l'ajout du commentaire
     header('Location: ../views/social/post.php?id=' . $postId);
     exit;
+}
+
+
+if (isset($_POST['update_profile'])) {
+    // Assurez-vous que l'utilisateur est connecté
+    if (isset($_SESSION['user_id'])) {
+        // Récupérez les données du formulaire
+        $userId = $_SESSION['user_id']; // Identifiant de l'utilisateur à mettre à jour
+        $pseudo = $_POST['pseudo'];
+        $email = $_POST['email'];
+        $newPassword = $_POST['password']; // Nouveau mot de passe
+        $confirmPassword = $_POST['confirm_password'];
+        $profileImage = null; // Initialise la variable pour le nom de la nouvelle image de profil
+
+        // Vérifiez si le mot de passe et la confirmation correspondent
+        if ($newPassword !== $confirmPassword) {
+            // Gérer l'erreur ici (par exemple, afficher un message à l'utilisateur)
+            exit; // Arrêter l'exécution du script
+        }
+
+        // Traitement du téléchargement de la nouvelle photo de profil
+        if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
+            $uploadedFile = $_FILES['profile_image'];
+            $filename = uniqid() . '_' . basename($uploadedFile['name']);
+            $uploadPath = '../../uploads/' . $filename;
+
+            if (move_uploaded_file($uploadedFile['tmp_name'], $uploadPath)) {
+                $profileImage = $filename;
+            } else {
+                // Gestion de l'erreur de téléchargement
+                exit("Erreur lors du téléchargement de la photo de profil.");
+            }
+        }
+
+        // Récupérer l'utilisateur à partir de son ID
+        $user = User::getById($userId);
+
+        // Mettre à jour les informations du profil si l'utilisateur existe
+        if ($user) {
+            // Mettre à jour le profil de l'utilisateur
+            $user->updateProfile($userId, $pseudo, $email, $newPassword, $profileImage);
+
+            // Rediriger l'utilisateur vers la page de profil ou une autre page appropriée
+            header('Location: ../views/social/profile.php');
+            exit();
+        } else {
+            // Gérer l'erreur si l'utilisateur n'existe pas
+            exit("L'utilisateur n'existe pas.");
+        }
+    } else {
+        // Rediriger l'utilisateur vers la page de connexion s'il n'est pas connecté
+        header('Location: ../views/auth/login.php');
+        exit;
+    }
 }
 
 

@@ -79,7 +79,6 @@ class PostController extends Controller
 
         // Création de l'objet Post
         $post = new Post($postData);
-        print_r($post);
 
         // Enregistrement de la publication dans la base de données
         if (!$error) {

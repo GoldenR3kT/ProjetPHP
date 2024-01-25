@@ -34,12 +34,16 @@ session_start();
 <div class="container">
 
     <div class="container">
+
+
         <h2>Modifier le Profil</h2>
 
         <!-- Formulaire de modification de profil -->
         <form action="../../controllers/process.php" method="post" enctype="multipart/form-data">
+            <img src="../../../uploads/<?php echo $_SESSION['img']; ?>" alt="Image de profil">
+
             <label for="username">Nom d'utilisateur:</label>
-            <input type="text" id="username" name="username" value="<?php echo $_SESSION['username']; ?>" required>
+            <input type="text" id="pseudo" name="pseudo" value="<?php echo $_SESSION['pseudo']; ?>" required>
 
             <label for="email">Adresse e-mail:</label>
             <input type="email" id="email" name="email" value="<?php echo $_SESSION['email']; ?>" required>
