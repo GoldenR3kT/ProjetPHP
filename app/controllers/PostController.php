@@ -46,13 +46,13 @@ class PostController extends Controller
 
         if (isset($_SESSION['user_id'])) {
             $id_user = $_SESSION['user_id'];
-            $name = Post::getName($id_user);
+            $author = User::getFirstNameById($id_user);
         } else {
             $id_user = null;
-            $name = null;
+            $author = null;
         }
 
-        print_r($name);
+        print_r($author);
 
         // Création d'un tableau de données pour la publication
         $postData = [
@@ -63,7 +63,7 @@ class PostController extends Controller
             'titre' => $title,
             'visibilite' => $visibility,
             'aime' => 0,  // Initialisez le nombre de likes à zéro
-            'name'=>$name
+            'author'=>$author
         ];
 
         // Traitement du téléchargement de la photo
@@ -82,6 +82,7 @@ class PostController extends Controller
 
         // Création de l'objet Post
         $post = new Post($postData);
+        print_r($post);
 
         // Enregistrement de la publication dans la base de données
         if (!$error) {

@@ -15,7 +15,7 @@ class Post
 
     public $like;
 
-    public $name;
+    public $author;
 
 
     public function __construct($data)
@@ -27,7 +27,7 @@ class Post
         $this->title = $data['titre'];
         $this->visibility = $data['visibilite'];
         $this->like= $data['aime'];
-        $this->name=$data['name'];
+        $this->author=$data['author'];
     }
 
 
@@ -36,8 +36,8 @@ class Post
     public function save()
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("INSERT INTO POST (IDuser,Message, Img, titre, visibilite,aime) VALUES (?,?, ?, ?, ?, ?)");
-        $stmt->execute([$this->IDuser,$this->content, $this->photo, $this->title, $this->visibility, $this->like]);
+        $stmt = $db->prepare("INSERT INTO POST (IDuser,Message, Img, titre, visibilite,aime,author) VALUES (?,?, ?, ?, ?, ?,?)");
+        $stmt->execute([$this->IDuser,$this->content, $this->photo, $this->title, $this->visibility, $this->like,$this->author]);
     }
 
     public static function getName($IDuser)

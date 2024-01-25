@@ -47,7 +47,7 @@ session_start();
 
                 <p>Visibilité: <?php echo $post['visibilite']; ?></p>
 
-                <p>Posté par: <?php echo $post['name'];?></p>
+                <p>Posté par: <?php echo $post['author'];?></p>
 
 
                 <p>Date: <?php echo $post['created_at']; ?></p>

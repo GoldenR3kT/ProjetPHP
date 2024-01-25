@@ -67,6 +67,22 @@ class User
         );
     }
 
+    public static function getFirstNameById($id)
+    {
+        $db = include('../Database.php');
+        $stmt = $db->prepare("SELECT Prenom FROM USERS WHERE IDuser=?");
+        $stmt->execute([$id]);
+
+        $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Vérifier si l'utilisateur avec l'ID donné existe
+        if ($userData) {
+            return $userData['Prenom'];
+        } else {
+            return null; // Retourner null si l'utilisateur n'est pas trouvé
+        }
+    }
+
 }
 
 
