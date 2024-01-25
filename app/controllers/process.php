@@ -289,3 +289,7 @@ if (isset($_POST['manage_users'])) {
     header('Location: ../views/admin/admin_manage_users.php');
 }
 
+if (isset($_POST['profile'])) {
+
+    header('Location: ../views/social/profile.php');
+}
