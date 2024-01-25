@@ -32,7 +32,7 @@ session_start();
 
     <?php
     // Simuler une liste d'amis (à remplacer par vos données réelles)
-    $friends = array(
+    $users = array(
         array('name' => 'Ami 1', 'photo' => 'profile1.jpg'),
         array('name' => 'Ami 2', 'photo' => 'profile2.jpg'),
         array('name' => 'Ami 3', 'photo' => 'profile3.jpg'),
@@ -40,11 +40,11 @@ session_start();
         array('name' => 'Ami 5', 'photo' => 'profile5.jpg')
     );
 
-    if (!empty($friends)) {
-        foreach ($friends as $friend) {
-            echo '<div class="friend">';
-            echo '<img src="/profile_images/' . $friend['photo'] . '" alt="' . $friend['name'] . '">';
-            echo '<span>' . $friend['name'] . '</span>';
+    if (!empty($users)) {
+        foreach ($users as $user) {
+            echo '<div class="user">';
+            echo '<img src="/profile_images/' . $user['photo'] . '" alt="' . $user['name'] . '">';
+            echo '<span>' . $user['name'] . '</span>';
             echo '<button>Supprimer</button>';
             echo '</div>';
         }

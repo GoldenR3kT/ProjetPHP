@@ -11,7 +11,7 @@ class User
     public $last_name;
     public $birthdate;
     public $phone;
-    public $Admin = false;
+    public $Admin;
     public $id;
 
 

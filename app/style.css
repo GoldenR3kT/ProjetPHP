@@ -210,7 +210,7 @@ label {
     background-color: #2980b9;
 }
 
-.friend {
+.user {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -219,12 +219,12 @@ label {
     border: 1px solid #ddd;
 }
 
-.friend img {
+.user img {
     border-radius: 50%;
     margin-right: 10px;
 }
 
-.friend button {
+.user button {
     background-color: #e74c3c;
     color: #fff;
     border: none;
@@ -233,7 +233,7 @@ label {
     border-radius: 3px;
 }
 
-.friend button:hover {
+.user button:hover {
     background-color: #c0392b;
 }
 

@@ -3,6 +3,7 @@ session_start();
 
 require_once 'AuthController.php';
 require_once 'PostController.php';
+require_once 'AdminController.php';
 
 $postController = new PostController();
 
@@ -18,11 +19,20 @@ if (isset($_POST['connexion'])) {
     $user = $AuthController->login();
     // Si l'utilisateur est connecté, récupérer les posts et les stocker en session
     if ($user) {
-        $posts = $postController->index();
-        $_SESSION['posts'] = $posts;
+        if ($user->Admin){
+            $AdminController = new AdminController();
+            $users = $AdminController->index();
+            $_SESSION['users'] = $users;
+            header('Location: ../views/admin/admin_home.php');
+        }
+        else{
+            $posts = $postController->index();
+            $_SESSION['posts'] = $posts;
 
-        header('Location: ../views/social/home.php');
-        exit;
+            header('Location: ../views/social/home.php');
+            exit;
+        }
+
     }
 }
 
