@@ -57,8 +57,9 @@ session_start();
                 <!-- Boutons Like, Dislike et Commentaire -->
                 <div class="action-buttons">
                     <form action="../../controllers/process.php" method="post">
+                        <input type="hidden" name="postId" value="<?php echo $post['IDpost']; ?>">
                         <button name="like" type="submit">Like</button>
-                        <span>0</span>
+                        <span><?php echo $post['aime']; ?></span>
                     </form>
 
                     <form action="../../controllers/process.php" method="post">

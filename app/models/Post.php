@@ -38,6 +38,7 @@ class Post
         $db = include('../Database.php');
         $stmt = $db->prepare("INSERT INTO POST (IDuser,Message, Img, titre, visibilite,aime,author) VALUES (?,?, ?, ?, ?, ?,?)");
         $stmt->execute([$this->IDuser,$this->content, $this->photo, $this->title, $this->visibility, $this->like,$this->author]);
+
     }
 
     public static function getName($IDuser)
@@ -71,8 +72,19 @@ class Post
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+// Dans votre classe Post
+    public static function incrementLikes($postId)
+    {
+        $db = include('../Database.php');
+        $stmt = $db->prepare("UPDATE post SET aime = aime + 1 WHERE IDpost = ?");
+        $stmt->execute([$postId]);
+
+        // Ajoutez un message de débogage
+        error_log("Likes incremented for post with ID: " . $postId);
+    }
+
+
 
 }
-
 
 ?>

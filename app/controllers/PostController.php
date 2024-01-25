@@ -52,8 +52,6 @@ class PostController extends Controller
             $author = null;
         }
 
-        print_r($author);
-
         // Création d'un tableau de données pour la publication
         $postData = [
             'IDuser' => $id_user,
@@ -87,6 +85,10 @@ class PostController extends Controller
         // Enregistrement de la publication dans la base de données
         if (!$error) {
             $post->save();
+
+            // Mise à jour de la liste des publications en session
+            $_SESSION['posts'] = Post::getPaginatedPosts(0, 10);
+
             return;
         } else {
             // Gestion de l'erreur (téléchargement de la photo ou enregistrement en base de données)
@@ -97,6 +99,7 @@ class PostController extends Controller
         include('../views/social/error_view.php');
         exit;
     }
+
 
 
     // Méthode pour afficher une publication spécifique
