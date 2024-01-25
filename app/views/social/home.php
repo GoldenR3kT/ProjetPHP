@@ -78,7 +78,27 @@ session_start();
     } else {
         echo "<p>No posts available.</p>";
     }
+
     ?>
+
+    <div class="pagination">
+        <?php
+        // Vérifier si la variable $totalPages est définie dans la session
+        if (isset($_SESSION['totalPages'])) {
+            $totalPages = $_SESSION['totalPages'];
+
+            // Utilisez un seul formulaire pour tous les boutons de pagination
+            echo '<form action="../../controllers/process.php" method="post">';
+
+            // Boucle pour générer les liens de pagination
+            for ($i = 1; $i <= $totalPages; $i++) {
+                echo '<button type="submit" name="pagination" value="' . $i . '">' . $i . '</button>';
+            }
+
+            echo '</form>';
+        }
+        ?>
+    </div>
 
     <form action="../../controllers/process.php" method="post">
         <button name="new_post" type="submit">Créer un nouveau post</button>

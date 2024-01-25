@@ -10,16 +10,15 @@ class PostController extends Controller
 {
     // Méthode pour afficher la liste des publications
 
-    public static function index()
+    public static function index($currentPage)
     {
         // Exemple basique de récupération des publications depuis la base de données
         $postsPerPage = 10; // Nombre de publications par page
-        $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+        print_r($currentPage);
         $offset = ($currentPage - 1) * $postsPerPage;
-
         // Exemple basique d'utilisation d'un modèle pour récupérer les publications
         $posts = Post::getPaginatedPosts($offset, $postsPerPage);
-        //print_r($posts);
+
         // Exemple basique de calcul du nombre total de pages
         $totalPosts = Post::getTotalPosts();
         $totalPages = ceil($totalPosts / $postsPerPage);
@@ -27,14 +26,13 @@ class PostController extends Controller
         return $posts;
     }
 
-    // Méthode pour afficher le formulaire de création de publication
-    public function createForm()
+    public static function getNbPages()
     {
-        return $this->view('posts.create');
-    }
+        $totalPosts = Post::getNbTotalPosts();
+        $postsPerPage = 10;
 
-    // Méthode pour traiter la soumission du formulaire de création de publication
-// ...
+        return ceil($totalPosts / $postsPerPage);
+    }
 
     public function create()
     {

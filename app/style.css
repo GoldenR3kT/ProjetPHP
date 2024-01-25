@@ -61,7 +61,7 @@ h2 {
     margin-top: 20px;
 }
 
-.pagination a {
+.pagination button {
     display: inline-block;
     padding: 5px 10px;
     margin-right: 5px;
@@ -137,7 +137,7 @@ h2, h3 {
     margin-top: 15px;
 }
 
-.pagination a {
+.pagination button{
     background-color: #eee;
     color: #333;
 }
@@ -263,4 +263,3 @@ label {
     display: flex;
     align-items: center;
 }
-

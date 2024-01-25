@@ -52,6 +52,14 @@ class Post
         return $result['count'];
     }
 
+    public static function getNbTotalPosts()
+    {
+        $db = include('../Database.php');
+        $stmt = $db->prepare("SELECT COUNT(*) AS count FROM post");
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
 
     public static function getPaginatedPosts($offset, $limit)
     {

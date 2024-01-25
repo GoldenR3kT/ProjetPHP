@@ -27,8 +27,10 @@ if (isset($_POST['connexion'])) {
             header('Location: ../views/admin/admin_home.php');
         }
         else{
-            $posts = $postController->index();
+            $posts = $postController->index(1);
             $_SESSION['posts'] = $posts;
+
+            $_SESSION['totalPages'] = $postController::getNbPages();
 
             header('Location: ../views/social/home.php');
             exit;
@@ -53,7 +55,7 @@ if (isset($_POST['new_post'])) {
 if (isset($_POST['poster'])) {
     $postController->create();
 
-    $posts = $postController->index();
+    $posts = $postController->index(1);
     $_SESSION['posts'] = $posts;
 
 
@@ -78,7 +80,7 @@ if (isset($_POST['like'])) {
     }
 
     // Mettre à jour la variable de session ou récupérer à nouveau les posts de la base de données
-    $_SESSION['posts'] = Post::getPaginatedPosts(0, 10);
+    $_SESSION['posts'] = Post::getPaginatedPosts(1, 10);
 
     // Rediriger l'utilisateur vers la même page après le traitement du bouton "like"
     header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -103,7 +105,7 @@ if (isset($_POST['dislike'])) {
     }
 
     // Mettre à jour la variable de session ou récupérer à nouveau les posts de la base de données
-    $_SESSION['posts'] = Post::getPaginatedPosts(0, 10);
+    $_SESSION['posts'] = Post::getPaginatedPosts(1, 10);
 
     // Rediriger l'utilisateur vers la même page après le traitement du bouton "dislike"
     header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -133,6 +135,15 @@ if (isset($_POST['delete_post'])) {
     header('Location: ../views/admin/admin_home.php');
 }
 
+if (isset($_POST['pagination'])) {
+    $selectedPage = $_POST['pagination'];
+
+    $posts = $postController->index($selectedPage);
+
+    $_SESSION['posts'] = $posts;
+    header('Location: ../views/social/home.php?page=' . $selectedPage);
+    exit;
+}
 
 
 
