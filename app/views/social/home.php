@@ -40,7 +40,7 @@ session_start();
                 <h3><?php echo $post['titre']; ?></h3>
 
                 <?php if ($post['Img']): ?>
-                    <img src="/uploads/<?php echo $post['Img']; ?>" alt="Post Photo">
+                    <img src="../../../uploads/<?php echo $post['Img']; ?>" alt="Post Photo">
                 <?php endif; ?>
 
                 <p><?php echo $post['Message']; ?></p>

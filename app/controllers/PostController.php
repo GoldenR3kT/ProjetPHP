@@ -31,30 +31,62 @@ class PostController extends Controller
     }
 
     // Méthode pour traiter la soumission du formulaire de création de publication
+// ...
+
     public function create()
     {
-        // Votre logique de création de publication ici
-        // Assurez-vous de valider les données entrées par l'utilisateur
+        $error = null;
+        // Validation des données
+        $content = htmlspecialchars($_POST['content']);
+        $title = htmlspecialchars($_POST['title']);
+        $visibility = ($_POST['visibility'] === 'public') ? 'public' : 'friends';
 
-        $post = new Post();
-        $post->title = $_POST['title'];
-        $post->content = $_POST['content'];
-        $post->visibility = $_POST['visibility'];
+        // Création d'un tableau de données pour la publication
+        $postData = [
+            'IDpost' => null,
+            'Message' => $content,
+            'Img' => null,  // Initialisez Img à null pour l'instant
+            'titre' => $title,
+            'visibilite' => $visibility,
+            'aime' => 0,  // Initialisez le nombre de likes à zéro
+        ];
 
-        // Exemple basique de traitement du téléchargement de la photo
-        if ($_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+        // Traitement du téléchargement de la photo
+        if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
             $uploadedFile = $_FILES['photo'];
-            $filename = uniqid() . '_' . $uploadedFile['name'];
-            move_uploaded_file($uploadedFile['tmp_name'], 'uploads/' . $filename);
-            $post->photo = $filename;
+            $filename = uniqid() . '_' . basename($uploadedFile['name']);
+            $uploadPath = '../../uploads/' . $filename;
+
+            if (move_uploaded_file($uploadedFile['tmp_name'], $uploadPath)) {
+                $postData['Img'] = $filename;
+            } else {
+                // Gestion de l'erreur de téléchargement
+                $error = "Erreur lors du téléchargement de la photo.";
+            }
         }
 
-        $post->save(); // Enregistrement de la publication dans la base de données
+        // Création de l'objet Post
+        $post = new Post($postData);
 
-        // Rediriger vers la liste des publications après la création
-        header('Location: /posts');
+        // Enregistrement de la publication dans la base de données
+        if (!$error) {
+            $post->save();
+
+            // Redirection après la création réussie
+            header('Location: ../views/social/home.php');
+            exit;
+        } else {
+            // Gestion de l'erreur (téléchargement de la photo ou enregistrement en base de données)
+            $error = "Erreur lors de la création de la publication.";
+        }
+
+        // Affichage de l'erreur dans la vue
+        include('../views/social/error_view.php');
         exit;
     }
+
+
+
 
     // Méthode pour afficher une publication spécifique
     public function show($id)

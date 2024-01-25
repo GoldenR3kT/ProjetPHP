@@ -21,7 +21,7 @@ if (isset($_POST['connexion'])) {
         print_r($posts);
         $_SESSION['posts'] = $posts;
 
-        header('Location: ../views/social/home.php'); // Remplacez index.php par le nom de votre vue
+        header('Location: ../views/social/home.php');
         exit;
     }
 }
@@ -38,4 +38,9 @@ if (isset($_POST['friends'])) {
 if (isset($_POST['new_post'])) {
     header('Location: ../views/social/create.php');
 }
-?>
+
+if (isset($_POST['poster'])) {
+    $postController = new PostController();
+    $postController->create();
+    exit;
+}

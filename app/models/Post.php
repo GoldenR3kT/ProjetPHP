@@ -6,21 +6,24 @@ class Post
 
     // Propriétés du modèle
     public $IDpost;
-    public $IDuser; // Assurez-vous de stocker les mots de passe de manière sécurisée (par exemple, hachage et salage)
+    public $IDuser;
+
     public $content;
     public $photo;
     public $title;
     public $visibility;
 
+    public $like;
+
 
     public function __construct($data)
     {
         $this->IDpost = $data['IDpost'];
-        $this->IDuser = $data['IDuser'];
         $this->content = $data['Message'];
         $this->photo = $data['Img'];
         $this->title = $data['titre'];
         $this->visibility = $data['visibilite'];
+        $this->like= $data['aime'];
     }
 
 
@@ -29,10 +32,10 @@ class Post
     public function save()
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("INSERT INTO USERS (Message, Img, titre, visibilite) VALUES ( ?,?, ?, ?)");
-        $stmt->execute([$this->content, $this->photo, $this->title, $this->visibility]);
-
+        $stmt = $db->prepare("INSERT INTO POST (Message, Img, titre, visibilite,aime) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$this->content, $this->photo, $this->title, $this->visibility, $this->like]);
     }
+
 
     public static function getTotalPosts()
     {

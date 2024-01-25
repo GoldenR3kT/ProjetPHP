@@ -35,7 +35,7 @@ session_start();
         <div class="alert alert-danger"><?php echo $error; ?></div>
     <?php endif; ?>
 
-    <form method="post" action="../../controllers/process.php">
+    <form method="post" action="../../controllers/process.php" enctype="multipart/form-data">
         <p>
             <label for="title">Titre:</label>
             <input type="text" name="title" required>
@@ -58,7 +58,6 @@ session_start();
                 <option value="public">Publique</option>
             </select>
         </p>
-
         <button name="poster" type="submit">Créer un post</button>
     </form>
 
