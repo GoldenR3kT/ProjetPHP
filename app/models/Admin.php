@@ -14,14 +14,14 @@ class Admin
     public static function deleteUser($userId)
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("DELETE FROM users WHERE id = ?");
+        $stmt = $db->prepare("DELETE FROM users WHERE IDuser = ?");
         return $stmt->execute([$userId]);
     }
 
     public static function deletePost($postId)
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("DELETE FROM posts WHERE id = ?");
+        $stmt = $db->prepare("DELETE FROM post WHERE IDpost = ?");
         return $stmt->execute([$postId]);
     }
 }

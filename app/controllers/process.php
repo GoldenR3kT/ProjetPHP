@@ -7,23 +7,22 @@ require_once 'AdminController.php';
 require_once '../models/User.php';
 require_once '../models/Post.php';
 $postController = new PostController();
+$adminController = new AdminController();
+$AuthController = new AuthController();
 
 // Gérer les actions en fonction des formulaires soumis
 if (isset($_POST['registry'])) {
-    $AuthController = new AuthController();
     $AuthController->register();
 }
 
 if (isset($_POST['connexion'])) {
 
-    $AuthController = new AuthController();
     $user = $AuthController->login();
     $_SESSION['user'] = $user;
     // Si l'utilisateur est connecté, récupérer les posts et les stocker en session
     if ($user) {
         if ($user->Admin){
-            $AdminController = new AdminController();
-            $users = $AdminController->index();
+            $users = $adminController->index();
             $_SESSION['users'] = $users;
             header('Location: ../views/admin/admin_home.php');
         }
@@ -52,7 +51,6 @@ if (isset($_POST['new_post'])) {
 }
 
 if (isset($_POST['poster'])) {
-    $postController = new PostController();
     $postController->create();
 
     $posts = $postController->index();
@@ -111,6 +109,30 @@ if (isset($_POST['dislike'])) {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit;
 }
+
+if (isset($_POST['delete_user'])) {
+
+    $idUserToDelete = $_POST['user_id'];
+
+    $adminController::deleteUser($idUserToDelete);
+
+    $users = $adminController->index();
+    $_SESSION['users'] = $users;
+
+    header('Location: ../views/admin/admin_manage_users.php');
+}
+
+if (isset($_POST['delete_post'])) {
+
+    $idPostToDelete = $_POST['postId'];
+
+    $adminController::deletePost($idPostToDelete);
+
+    $_SESSION['posts'] = Post::getPaginatedPosts(0, 10);
+
+    header('Location: ../views/admin/admin_home.php');
+}
+
 
 
 

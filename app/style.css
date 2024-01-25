@@ -6,12 +6,19 @@ body, h1, h2, h3, p, ul, ol, li {
 
 
 h1 {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
     color: #333;
-    margin-top: 20px;
-    font-family: 'Pacifico', cursive; /* Ajout de la police d'écriture */
+    margin: 0; /* Ajout de cette ligne pour éliminer la marge */
+    padding: 10px;
+    width: 100%;
+    z-index: 1000;
+    background-color: #fff;
+    font-family: 'Pacifico', cursive;
 }
-
 
 body {
     font-family: Arial, sans-serif;
@@ -22,21 +29,26 @@ body {
 
 .container {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 80px auto 20px; /* Adjusted margin to make space for fixed header */
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Added relative positioning */
 }
 
 h2 {
     color: #333;
+    top: 80px; /* Adjusted top position to match header height */
+    padding: 10px;
+    margin-top: 0;
+    z-index: 999; /* Ensuring it appears above posts */
 }
 
 .post {
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 20px;
-    background-color: #fff;
+    z-index: 1; /* Ensure it appears above the background of h2 */
 }
 
 .post img {
@@ -138,9 +150,14 @@ label {
     color: #555;
 }
 
+.logout-button,
+.friends-button,
+.profile-button {
+    position: fixed;
+    z-index: 1001; /* Modifié le z-index */
+}
 
 .logout-button {
-    position: absolute;
     top: 10px;
     right: 10px;
 }
@@ -163,9 +180,9 @@ label {
 }
 
 .friends-button {
-    position: absolute;
     left: 10px;
     top: 50%;
+    transform: translate(0, -50%);
 }
 
 .friends-button button {
@@ -184,7 +201,6 @@ label {
 }
 
 .profile-button {
-    position: absolute;
     top: 20px;
     right: 60px;
     transform: translate(0, -50%);
@@ -224,7 +240,7 @@ label {
     margin-right: 10px;
 }
 
-.user button {
+.delete-button button {
     background-color: #e74c3c;
     color: #fff;
     border: none;
@@ -233,7 +249,7 @@ label {
     border-radius: 3px;
 }
 
-.user button:hover {
+.delete-button button:hover {
     background-color: #c0392b;
 }
 

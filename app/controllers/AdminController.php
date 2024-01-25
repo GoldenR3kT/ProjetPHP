@@ -9,4 +9,15 @@ class AdminController extends Controller
     {
         return Admin::getAllUsers();
     }
+
+    public static function deleteUser($idUser)
+    {
+        Admin::deleteUser($idUser);
+
+    }
+
+    public static function deletePost($idPost)
+    {
+        Admin::deletePost($idPost);
+    }
 }

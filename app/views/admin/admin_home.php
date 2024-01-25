@@ -1,54 +1,96 @@
-<!-- admin_view.php -->
+<!-- app/views/posts/index.php -->
 <?php
 session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <!-- ... autres balises head ... -->
     <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../../friends_icon.css">
     <link rel="stylesheet" href="../../logout_icon.css">
+    <link rel="stylesheet" href="../../profil_icon.css">
+    <link rel="stylesheet" href="../../trashcan_icon.css">
 </head>
 <body>
+<div class="profile-button button">
+    <form action="../../controllers/process.php" method="post">
+        <button type="submit" name="logout"><i class="gg-profile"></i></button>
+    </form>
+</div>
 <div class="logout-button button">
     <form action="../../controllers/process.php" method="post">
         <button type="submit" name="logout"><i class="gg-log-out"></i></button>
     </form>
 </div>
-<h1>Admin Panel</h1>
-
-<div class="container">
-    <h2>Users</h2>
-
-    <!-- Barre de recherche -->
-    <form action="#" method="post">
-        <label for="search">Search:</label>
-        <input type="text" name="search" id="search" placeholder="Enter username">
-        <button type="submit" name="search_button">Search</button>
+<h1><a href="admin_home.php" id="home">AdminGram</a></h1>
+<div class="friends-button button">
+    <form action="../../controllers/process.php" method="post">
+        <button type="submit" name="friends"><i class="gg-user-list"></i></button>
     </form>
+</div>
+<div class="container">
+    <h2>Posts</h2>
 
-    <!-- Liste des utilisateurs -->
-        <?php
+    <?php
+    // Vérifier si la variable $posts est définie dans la session
+    if (isset($_SESSION['posts'])) {
+        $posts = $_SESSION['posts'];
+        foreach ($posts as $post): ?>
+            <div class="post">
+                <h3><?php echo $post['titre']; ?></h3>
 
-        if (isset($_SESSION['users'])) {
-            $users = $_SESSION['users'];
-            foreach ($users as $user) {
-                echo '<div class="user">';
-                //echo '<img src="/profile_images/' . $user['Img'] . '" alt="' . $user['pseudo'] . '">';
-                //echo '<span>' . $user['pseudo'] . '</span>';
-                echo '<span>Email: ' . $user['Email'] . '</span>';
-                echo '<span>Prénom: ' . $user['Prenom'] . '</span>';
-                echo '<span>Nom: ' . $user['Nom'] . '</span>';
-                echo '<span>Date d\'inscription: ' . $user['date_naissance'] . '</span>';
-                echo '<button>Supprimer</button>';
-                echo '</div>';
-            }
-        } else {
-            echo '<p>Aucun utilisateur pour le moment.</p>';
-        }
-        ?>
+                <?php if ($post['Img']): ?>
+                    <img src="../../../uploads/<?php echo $post['Img']; ?>" alt="Post Photo">
+                <?php endif; ?>
+
+                <p><?php echo $post['Message']; ?></p>
+
+                <p>Visibilité: <?php echo $post['visibilite']; ?></p>
+
+                <p>Posté par: <?php echo $post['author'];?></p>
+
+
+                <p>Date: <?php echo $post['created_at']; ?></p>
+
+                <?php print_r($post)?>
+
+                <!-- Boutons Like, Dislike et Commentaire -->
+                <div class="action-buttons">
+                    <form action="../../controllers/process.php" method="post">
+                        <input type="hidden" name="postId" value="<?php echo $post['IDpost']; ?>">
+                        <button name="like" type="submit">Like</button>
+                        <span><?php echo $post['aime']; ?></span>
+                    </form>
+
+                    <form action="../../controllers/process.php" method="post">
+                        <button name="dislike" type="submit">Dislike</button>
+                        <span>0</span>
+                    </form>
+
+                    <form action="../../controllers/process.php" method="post">
+                        <button name="comment" type="submit">Commentaire</button>
+                        <span>0</span>
+                    </form>
+                    <form action="../../controllers/process.php" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce post ?');">
+                        <input type="hidden" name="postId" value="<?php echo $post['IDpost']; ?>">
+                        <div class="delete-button">
+                        <button type="submit" name="delete_post">
+                            <i class="gg-trash"></i>
+                        </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <?php endforeach;
+    } else {
+        echo "<p>No posts available.</p>";
+    }
+    ?>
+
+    <form action="../../controllers/process.php" method="post">
+        <button name="new_post" type="submit">Créer un nouveau post</button>
+    </form>
 </div>
 
 </body>

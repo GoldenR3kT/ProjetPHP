@@ -25,7 +25,7 @@ session_start();
         <button type="submit" name="logout"><i class="gg-log-out"></i></button>
     </form>
 </div>
-<h1>MyGram</h1>
+<h1><a href="home.php" id="home">MyGram</a></h1>
 
 <div class="container">
     <h2>Liste d'amis</h2>
@@ -45,7 +45,9 @@ session_start();
             echo '<div class="user">';
             echo '<img src="/profile_images/' . $user['photo'] . '" alt="' . $user['name'] . '">';
             echo '<span>' . $user['name'] . '</span>';
-            echo '<button>Supprimer</button>';
+            echo '<div class="delete-button">';
+            echo '<button type="submit" name="delete_friend"><i class="gg-trash"></i></button>';
+            echo '</div>';
             echo '</div>';
         }
     } else {
