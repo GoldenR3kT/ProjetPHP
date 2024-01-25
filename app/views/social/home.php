@@ -1,4 +1,4 @@
-<!-- app/views/posts/index.php -->
+<!-- app/views/social/home.php -->
 <?php
 session_start();
 ?>
@@ -68,6 +68,7 @@ session_start();
                     </form>
 
                     <form action="../../controllers/process.php" method="post">
+                        <input type="hidden" name="postId" value="<?php echo $post['IDpost']; ?>">
                         <button name="comment" type="submit">Commentaire</button>
                         <span>0</span>
                     </form>

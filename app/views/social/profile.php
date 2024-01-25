@@ -1,4 +1,4 @@
-<!-- app/views/profile/edit.php -->
+<!-- app/views/social/profile.php -->
 <?php
 session_start();
 

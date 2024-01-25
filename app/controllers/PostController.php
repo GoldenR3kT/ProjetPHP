@@ -102,18 +102,9 @@ class PostController extends Controller
 
 
     // Méthode pour afficher une publication spécifique
-    public function show($id)
-    {
+    public function getPost($id) {
         // Exemple basique de récupération d'une publication par son ID depuis la base de données
-        $post = Post::getById($id);
-
-        if (!$post) {
-            // Gérer le cas où la publication n'est pas trouvée (redirection, affichage d'une erreur, etc.)
-            header('Location: /posts');
-            exit;
-        }
-
-        return $this->view('posts.show', ['post' => $post]);
+        return Post::getPostById($id);
     }
 
     public static function searchPosts($searchTerm)
@@ -127,5 +118,14 @@ class PostController extends Controller
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     // Autres méthodes nécessaires...
+
+    // Dans votre PostController.php
+
+// Ajoutez cette méthode pour récupérer les commentaires d'un post
+    public function getComments($postId) {
+        $comments = Comment::getCommentsByPostId($postId);
+        return $comments;
+    }
+
 
 }

@@ -14,7 +14,7 @@ $postController = new PostController();
 $adminController = new AdminController();
 $AuthController = new AuthController();
 $friendshipController = new FriendshipController();
-
+$commentaireController = new CommController();
 // Gérer les actions en fonction des formulaires soumis
 if (isset($_POST['registry'])) {
     $AuthController->register();
@@ -291,5 +291,28 @@ if (isset($_POST['manage_users'])) {
 
 if (isset($_POST['profile'])) {
 
+
     header('Location: ../views/social/profile.php');
 }
+
+if (isset($_POST['comment'])) {
+    $postId = isset($_POST['postId']) ? $_POST['postId'] : null;
+
+    $_SESSION['post'] = $postController->getPost($postId);
+    $_SESSION['comments'] = $commentaireController->getCommentsForPost($postId);
+    header('Location: ../views/social/post.php');
+}
+
+if (isset($_POST['addComment'])) {
+    $postId = isset($_POST['postId']) ? $_POST['postId'] : null;
+    $commentContent = isset($_POST['commentContent']) ? $_POST['commentContent'] : '';
+
+    // Ajoutez la logique pour créer et enregistrer le commentaire
+    Comment::addComment($postId, $_SESSION['user_id'], $commentContent);
+
+    // Rediriger l'utilisateur vers la page des commentaires après l'ajout du commentaire
+    header('Location: ../views/social/post.php?id=' . $postId);
+    exit;
+}
+
+

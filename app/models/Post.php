@@ -179,6 +179,19 @@ class Post
         $stmt->execute([$postId]);
     }
 
+    public static function getPostById($postId)
+    {
+        $db = include('../Database.php');
+        $stmt = $db->prepare("SELECT * FROM post WHERE IDpost = ?");
+        $stmt->execute([$postId]);
+        $post = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($post) {
+            return $post;
+        } else {
+            return null;
+        }
+    }
 
 }
 
