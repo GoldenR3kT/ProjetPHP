@@ -74,7 +74,7 @@ class PostController extends Controller
 
             // Redirection après la création réussie
             header('Location: ../views/social/home.php');
-            exit;
+            return;
         } else {
             // Gestion de l'erreur (téléchargement de la photo ou enregistrement en base de données)
             $error = "Erreur lors de la création de la publication.";
