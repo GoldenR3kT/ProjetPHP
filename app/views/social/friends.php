@@ -42,7 +42,7 @@ if (isset($_SESSION['friends']) && !empty($_SESSION['friends'])): ?>
     <ul>
         <?php foreach ($_SESSION['friends'] as $friend): ?>
             <li>
-                <?php echo $friend['Nom'] . ' ' . $friend['Prenom']; ?>
+                <?php echo $friend['Nom'] . ' ' . $friend['Prenom']. ' ' . ' Pseudo:' .$friend['pseudo']; ?>
                 <form action="../../controllers/process.php" method="post">
                     <input type="hidden" name="friend_id_to_remove" value="<?php echo $friend['IDuser']; ?>">
                     <button type="submit" name="remove_friend">Remove</button>

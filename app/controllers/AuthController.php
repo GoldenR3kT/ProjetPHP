@@ -58,7 +58,8 @@ class AuthController extends Controller
             'Nom' => $_POST['last_name'],
             'date_naissance' => $_POST['birthdate'],
             'tel' => $_POST['phone'],
-            'Admin' => null  // Laissez Admin comme null par défaut, ou ajustez selon vos besoins
+            'Admin' => null, // Laissez Admin comme null par défaut, ou ajustez selon vos besoins
+            'pseudo' => $_POST['pseudo']
         ];
 
         $user = new User($userData);

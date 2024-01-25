@@ -49,8 +49,7 @@ session_start();
 
                 <p>Posté par: <?php echo $post['author'];?></p>
 
-
-                <p>Date: <?php echo $post['created_at']; ?></p>
+                <p>Date: <?php echo $post['date_post']; ?></p>
 
 
                 <!-- Boutons Like, Dislike et Commentaire -->

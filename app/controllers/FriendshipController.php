@@ -11,6 +11,7 @@ class FriendshipController
         return $friends;
     }
 
+
     // Méthode pour ajouter un ami
 // Dans le contrôleur FriendshipController, méthode addFriend
 
@@ -55,7 +56,7 @@ class FriendshipController
     public function searchUsers($searchTerm)
     {
         // Assurez-vous de nettoyer et de préparer la recherche pour éviter les attaques par injection SQL
-        $cleanSearchTerm = '%' . $searchTerm . '%'; // Ajoutez des wildcards pour rechercher partiellement
+        $cleanSearchTerm = '%' . $searchTerm . '%';
 
         // Utilisez une méthode du modèle User pour rechercher les utilisateurs
         $users = User::searchUsersByName($cleanSearchTerm);

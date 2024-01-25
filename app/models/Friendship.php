@@ -61,7 +61,7 @@ class Friendship
         $db = include('../Database.php');
 
         try {
-            $stmt = $db->prepare("SELECT Users.Nom, Users.Prenom, Users.IDuser  FROM ami JOIN Users ON ami.IDuser2 = Users.IDuser WHERE ami.IDuser1 = ?");
+            $stmt = $db->prepare("SELECT Users.Nom, Users.Prenom, Users.IDuser, Users.pseudo  FROM ami JOIN Users ON ami.IDuser2 = Users.IDuser WHERE ami.IDuser1 = ?");
             $stmt->execute([$userID]);
             $friends = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

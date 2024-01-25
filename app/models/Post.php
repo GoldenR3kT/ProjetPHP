@@ -18,6 +18,8 @@ class Post
     public $author;
     public $dislike;
 
+    public $date_post;
+
 
     public function __construct($data)
     {
@@ -30,6 +32,7 @@ class Post
         $this->like= $data['aime'];
         $this->author=$data['author'];
         $this->dislike= $data['aimePas'];
+        $this->date_post=$data['date_post'];
     }
 
 
@@ -38,10 +41,15 @@ class Post
     public function save()
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("INSERT INTO POST (IDuser,Message, Img, titre, visibilite,aime,author,aimePas) VALUES (?,?, ?, ?, ?, ?,?,?)");
-        $stmt->execute([$this->IDuser,$this->content, $this->photo, $this->title, $this->visibility, $this->like,$this->author,$this->dislike]);
+        $stmt = $db->prepare("INSERT INTO POST (IDuser, Message, Img, titre, visibilite, aime, author, aimePas, date_post) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
+        // Obtenez la date actuelle au format YYYY-MM-DD
+        $currentDate = date('Y-m-d');
+
+        // Exécutez la requête en liant les valeurs et la date actuelle
+        $stmt->execute([$this->IDuser, $this->content, $this->photo, $this->title, $this->visibility, $this->like, $this->author, $this->dislike, $currentDate]);
     }
+
 
     public static function getTotalPosts()
     {

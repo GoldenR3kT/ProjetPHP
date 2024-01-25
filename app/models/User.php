@@ -13,6 +13,7 @@ class User
     public $phone;
     public $Admin;
     public $id;
+    public $pseudo;
 
 
     public function __construct($data)
@@ -25,6 +26,7 @@ class User
         $this->birthdate = $data['date_naissance'];
         $this->phone = $data['tel'];
         $this->Admin = $data['Admin'];
+        $this->pseudo= $data['pseudo'];
     }
 
 
@@ -33,8 +35,8 @@ class User
     public function save()
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("INSERT INTO USERS (Nom, Prenom, Email, MDP, Admin, tel, date_naissance) VALUES ( ?,?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$this->last_name, $this->first_name, $this->email, $this->password, $this->Admin, $this->phone, $this->birthdate]);
+        $stmt = $db->prepare("INSERT INTO USERS (Nom, Prenom, Email, MDP, Admin, tel, date_naissance,pseudo) VALUES ( ?,?, ?, ?, ?, ?, ?,?)");
+        $stmt->execute([$this->last_name, $this->first_name, $this->email, $this->password, $this->Admin, $this->phone, $this->birthdate, $this->pseudo]);
 
     }
 
@@ -88,9 +90,9 @@ class User
         $db = include('../Database.php'); // Obtenez la connexion à la base de données
 
         // Requête SQL pour rechercher des utilisateurs par nom ou prénom
-        $sql = "SELECT * FROM USERS WHERE Nom LIKE ? OR Prenom LIKE ?";
+        $sql = "SELECT * FROM USERS WHERE pseudo LIKE ? ";
         $stmt = $db->prepare($sql);
-        $stmt->execute([$searchTerm, $searchTerm]);
+        $stmt->execute([$searchTerm]);
 
         // Récupérer les résultats de la recherche sous forme de tableau associatif
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
