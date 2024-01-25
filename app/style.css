@@ -39,9 +39,9 @@ body {
 
 
 .container img{
-    max-width: 2px; /* Largeur maximale de l'image à 100% de la largeur du conteneur parent */
+    max-width: 100px; /* Largeur maximale de l'image à 100% de la largeur du conteneur parent */
     height: 50%; /* Hauteur automatique pour maintenir les proportions de l'image */
-    margin-top: 2px;
+    margin-top: 15px;
     align-content: center;
 }
 h2 {

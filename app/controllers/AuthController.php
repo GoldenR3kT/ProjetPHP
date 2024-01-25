@@ -29,6 +29,11 @@ class AuthController extends Controller
             if (password_verify($password, $user->password)) {
                 // Authentification réussie
                 $_SESSION['user_id'] = $user->id;
+                $_SESSION['pseudo'] = $user->pseudo;
+                $_SESSION['email'] = $user->email;
+                $_SESSION['first_name'] = $user->first_name;
+                $_SESSION['last_name'] = $user->last_name;
+                $_SESSION['img'] = $user->img;
                 return $user;
             }
         }

@@ -14,6 +14,8 @@ class User
     public $Admin;
     public $id;
     public $pseudo;
+    public $img;
+
 
 
     public function __construct($data)
@@ -27,8 +29,8 @@ class User
         $this->phone = $data['tel'];
         $this->Admin = $data['Admin'];
         $this->pseudo= $data['pseudo'];
+        $this->img= $data['img'];
     }
-
 
     // Méthode pour enregistrer un nouvel utilisateur
 
@@ -100,6 +102,43 @@ class User
         // Retourner les utilisateurs trouvés
         return $users;
     }
+
+    // Dans votre classe User
+
+    public static function getById($userId)
+    {
+        $db = include('../Database.php');
+
+        $stmt = $db->prepare("SELECT * FROM USERS WHERE IDuser = ?");
+        $stmt->execute([$userId]);
+
+        $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $userData ? new User($userData) : null;
+    }
+
+
+    public static function updateProfile($userId, $pseudo, $email, $newPassword, $profileImage)
+    {
+        $db = include('../Database.php');
+
+        print_r($newPassword);
+        // Vérifier si un nouveau mot de passe est fourni et le hacher si nécessaire
+        if (!empty($newPassword)) {
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        } else {
+            // Si aucun nouveau mot de passe n'est fourni, conserver le mot de passe existant
+            $hashedPassword = null; // Ou récupérez le mot de passe existant depuis la base de données
+        }
+
+
+        // Préparer et exécuter la requête SQL
+        $stmt = $db->prepare("UPDATE USERS SET pseudo = ?, Email = ?, MDP = ?, img = ? WHERE IDuser = ?");
+        $stmt->execute([$pseudo, $email, $hashedPassword, $profileImage, $userId]);
+    }
+
+
+
 
 }
 
