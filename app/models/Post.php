@@ -15,6 +15,8 @@ class Post
 
     public $like;
 
+    public $name;
+
 
     public function __construct($data)
     {
@@ -25,6 +27,7 @@ class Post
         $this->title = $data['titre'];
         $this->visibility = $data['visibilite'];
         $this->like= $data['aime'];
+        $this->name=$data['name'];
     }
 
 
@@ -35,6 +38,14 @@ class Post
         $db = include('../Database.php');
         $stmt = $db->prepare("INSERT INTO POST (IDuser,Message, Img, titre, visibilite,aime) VALUES (?,?, ?, ?, ?, ?)");
         $stmt->execute([$this->IDuser,$this->content, $this->photo, $this->title, $this->visibility, $this->like]);
+    }
+
+    public static function getName($IDuser)
+    {
+        $db = include('../Database.php');
+        $stmt = $db->prepare("SELECT DISTINCT users.Nom FROM post JOIN users ON post.IDuser = users.IDuser WHERE post.IDuser = ?");
+        $stmt->execute([$IDuser]);
+        return $stmt->fetchColumn();
     }
 
 

@@ -58,5 +58,6 @@ if (isset($_POST['poster'])) {
     $posts = $postController->index();
     $_SESSION['posts'] = $posts;
 
+
     header('Location: ../views/social/home.php');
 }
