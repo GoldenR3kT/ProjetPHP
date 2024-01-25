@@ -27,7 +27,7 @@ session_start();
     <form action="../../controllers/process.php" method="post">
         <label for="search">Search:</label>
         <input type="text" name="search" id="search" placeholder="Enter username">
-        <button type="submit" name="search_button">Search</button>
+        <button type="submit" name="search_button_users">Search</button>
     </form>
 
     <form action="../../controllers/process.php" method="post">
@@ -43,7 +43,7 @@ session_start();
                 echo '<span>Email: ' . $user['Email'] . '</span>';
                 echo '<span>Prénom: ' . $user['Prenom'] . '</span>';
                 echo '<span>Nom: ' . $user['Nom'] . '</span>';
-                echo '<span>Date d\'inscription: ' . $user['date_naissance'] . '</span>';
+                echo '<span>Date de naissance: ' . $user['date_naissance'] . '</span>';
 
                 echo '<div class="delete-button">';
                 echo '<button type="submit" name="delete_user"><i class="gg-trash"></i></button>';

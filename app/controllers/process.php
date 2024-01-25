@@ -26,13 +26,17 @@ if (isset($_POST['connexion'])) {
     $_SESSION['user'] = $user;
     // Si l'utilisateur est connecté, récupérer les posts et les stocker en session
     if ($user) {
-        if ($user->Admin){
+        $_SESSION['currentPage'] = 1;
+        if ($user->Admin) {
             $users = $adminController->index();
             $_SESSION['users'] = $users;
+
+            $posts = $postController->index(1);
+            $_SESSION['posts'] = $posts;
+            $_SESSION['totalPages'] = $postController::getNbPages();
+
             header('Location: ../views/admin/admin_home.php');
-        }
-        else{
-            $_SESSION['currentPage'] = 1;
+        } else {
             $posts = $postController->index(1);
             $_SESSION['posts'] = $posts;
 
@@ -154,8 +158,23 @@ if (isset($_POST['pagination'])) {
     $_SESSION['currentPage'] = $selectedPage;
 
     $_SESSION['posts'] = $posts;
+
+
     header('Location: ../views/social/home.php?page=' . $selectedPage);
+
     exit;
+}
+
+if (isset($_POST['pagination_admin'])) {
+    $selectedPage = $_POST['pagination_admin'];
+
+    $posts = $postController->index($selectedPage);
+
+    $_SESSION['currentPage'] = $selectedPage;
+
+    $_SESSION['posts'] = $posts;
+
+    header('Location: ../views/admin/admin_home.php?page=' . $selectedPage);
 }
 
 // Dans ton fichier process.php
@@ -219,7 +238,54 @@ if (isset($_POST['search_friends'])) {
 }
 
 
+if (isset($_POST['search_button_users'])) {
+    $searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
 
 
+    // Effectuer la recherche
+    $users = $adminController->searchUsers($searchTerm);
 
+    // Mettre les résultats de la recherche en session
+    $_SESSION['users'] = $users;
+
+    // Rediriger vers la page d'administration avec les résultats de la recherche
+    header('Location: ../views/admin/admin_manage_users.php');
+    exit;
+}
+
+if (isset($_POST['search_button_posts'])) {
+    $searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
+
+    // Effectuer la recherche
+    $posts = $postController->searchPosts($searchTerm);
+
+    // Mettre les résultats de la recherche en session
+    $_SESSION['posts'] = $posts;
+
+    // Rediriger vers la page des posts avec les résultats de la recherche
+    header('Location: ../views/social/home.php');
+
+}
+
+if (isset($_POST['search_button_posts_admin'])) {
+    $searchTerm = isset($_POST['search']) ? $_POST['search'] : '';
+
+    // Effectuer la recherche
+    $posts = $postController->searchPosts($searchTerm);
+
+    // Mettre les résultats de la recherche en session
+    $_SESSION['posts'] = $posts;
+    $_SESSION['totalPages'] = $postController::getNbPages();
+
+    // Rediriger vers la page des posts avec les résultats de la recherche
+    header('Location: ../views/admin/admin_home.php');
+
+
+}
+
+if (isset($_POST['manage_users'])) {
+    $users = $adminController->index();
+    $_SESSION['users'] = $users;
+    header('Location: ../views/admin/admin_manage_users.php');
+}
 

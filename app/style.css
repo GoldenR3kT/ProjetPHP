@@ -277,4 +277,27 @@ label {
     align-items: center;
 }
 
+/* Ajout de style pour le bouton de gestion d'utilisateur */
+.manage-user-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1001;
+}
+
+.manage-user-button button {
+    padding: 12px 20px;
+    background-color: #3498db;
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.manage-user-button button:hover {
+    background-color: #2980b9;
+}
+
 

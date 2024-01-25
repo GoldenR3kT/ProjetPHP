@@ -23,6 +23,15 @@ session_start();
         <button type="submit" name="logout"><i class="gg-log-out"></i></button>
     </form>
 </div>
+
+<!-- Bouton pour changer de vue -->
+<div class="manage-user-button button" style="position: absolute; top: 10px; left: 10px;">
+    <form action="../../controllers/process.php" method="post">
+        <button type="submit" name="manage_users">AllUsers</button>
+    </form>
+</div>
+
+
 <h1><a href="admin_home.php" id="home" style="text-decoration: none; color: red;">AdminGram</a></h1>
 <div class="friends-button button">
     <form action="../../controllers/process.php" method="post">
@@ -31,6 +40,14 @@ session_start();
 </div>
 <div class="container">
     <h2>Posts</h2>
+
+    <!-- Barre de recherche -->
+    <form action="../../controllers/process.php" method="post">
+        <label for="search">Search:</label>
+        <input type="text" name="search" id="search" placeholder="Enter title or author">
+        <button type="submit" name="search_button_posts_admin">Search</button>
+    </form>
+
 
     <?php
     // Vérifier si la variable $posts est définie dans la session
@@ -53,7 +70,6 @@ session_start();
 
                 <p>Date: <?php echo $post['created_at']; ?></p>
 
-                <?php print_r($post)?>
 
                 <!-- Boutons Like, Dislike et Commentaire -->
                 <div class="action-buttons">
@@ -87,6 +103,26 @@ session_start();
         echo "<p>No posts available.</p>";
     }
     ?>
+
+    <div class="pagination">
+        <?php
+        // Vérifier si la variable $totalPages est définie dans la session
+        if (isset($_SESSION['totalPages'])) {
+            $totalPages = $_SESSION['totalPages'];
+
+            // Utilisez un seul formulaire pour tous les boutons de pagination
+            echo '<form action="../../controllers/process.php" method="post">';
+
+            // Boucle pour générer les liens de pagination
+            for ($i = 1; $i <= $totalPages; $i++) {
+                $disabled = ($i == $_SESSION['currentPage']) ? 'disabled' : '';
+                echo '<button type="submit" name="pagination_admin" value="' . $i . '" ' . $disabled . '>' . $i . '</button>';
+            }
+
+            echo '</form>';
+        }
+        ?>
+    </div>
 
     <form action="../../controllers/process.php" method="post">
         <button name="new_post" type="submit">Créer un nouveau post</button>

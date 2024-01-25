@@ -52,7 +52,6 @@ session_start();
 
                 <p>Date: <?php echo $post['created_at']; ?></p>
 
-                <?php print_r($post)?>
 
                 <!-- Boutons Like, Dislike et Commentaire -->
                 <div class="action-buttons">

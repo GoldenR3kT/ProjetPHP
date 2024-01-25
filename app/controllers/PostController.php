@@ -116,6 +116,16 @@ class PostController extends Controller
         return $this->view('posts.show', ['post' => $post]);
     }
 
+    public static function searchPosts($searchTerm)
+    {
+        $db = include('../Database.php');
+
+        // Utilisez une requête SQL avec des conditions pour le titre et l'auteur
+        $stmt = $db->prepare("SELECT * FROM post WHERE titre LIKE :term OR author LIKE :term");
+        $stmt->execute(['term' => "%$searchTerm%"]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     // Autres méthodes nécessaires...
 
 }
