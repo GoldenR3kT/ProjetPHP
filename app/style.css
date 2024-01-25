@@ -11,7 +11,7 @@ h1 {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    color: #333;
+    color: #000000;
     margin: 0; /* Ajout de cette ligne pour éliminer la marge */
     padding: 10px;
     width: 100%;

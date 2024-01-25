@@ -13,6 +13,7 @@ session_start();
     <link rel="stylesheet" href="../../friends_icon.css">
     <link rel="stylesheet" href="../../logout_icon.css">
     <link rel="stylesheet" href="../../profil_icon.css">
+    <link rel="stylesheet" href="../../trashcan_icon.css">
 </head>
 <body>
 <div class="profile-button button">
@@ -25,8 +26,7 @@ session_start();
         <button type="submit" name="logout"><i class="gg-log-out"></i></button>
     </form>
 </div>
-<h1><a href="home.php" id="home">MyGram</a></h1>
-
+<h1><a href="home.php" id="home" style="text-decoration: none; color: black;">MyGram</a></h1>
 <div class="container">
     <h2>Liste d'amis</h2>
 

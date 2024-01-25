@@ -18,7 +18,7 @@ session_start();
         <button type="submit" name="logout"><i class="gg-log-out"></i></button>
     </form>
 </div>
-<h1><a href="admin_home.php" id="home">AdminGram</a></h1>
+<h1><a href="admin_home.php" id="home" style="text-decoration: none; color: red;">AdminGram</a></h1>
 
 <div class="container">
     <h2>Users</h2>

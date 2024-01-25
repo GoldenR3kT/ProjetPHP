@@ -22,7 +22,7 @@ session_start();
         <button type="submit" name="logout"><i class="gg-log-out"></i></button>
     </form>
 </div>
-<h1><a href="home.php" id="home">MyGram</a></h1>
+<h1><a href="home.php" id="home" style="text-decoration: none; color: black;">MyGram</a></h1>
 <div class="friends-button button">
     <form action="../../controllers/process.php" method="post">
         <button type="submit" name="friends"><i class="gg-user-list"></i></button>
