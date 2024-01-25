@@ -92,13 +92,15 @@ session_start();
 
             // Boucle pour générer les liens de pagination
             for ($i = 1; $i <= $totalPages; $i++) {
-                echo '<button type="submit" name="pagination" value="' . $i . '">' . $i . '</button>';
+                $disabled = ($i == $_SESSION['currentPage']) ? 'disabled' : '';
+                echo '<button type="submit" name="pagination" value="' . $i . '" ' . $disabled . '>' . $i . '</button>';
             }
 
             echo '</form>';
         }
         ?>
     </div>
+
 
     <form action="../../controllers/process.php" method="post">
         <button name="new_post" type="submit">Créer un nouveau post</button>

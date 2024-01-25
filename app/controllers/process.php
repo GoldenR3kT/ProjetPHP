@@ -27,6 +27,7 @@ if (isset($_POST['connexion'])) {
             header('Location: ../views/admin/admin_home.php');
         }
         else{
+            $_SESSION['currentPage'] = 1;
             $posts = $postController->index(1);
             $_SESSION['posts'] = $posts;
 
@@ -139,6 +140,8 @@ if (isset($_POST['pagination'])) {
     $selectedPage = $_POST['pagination'];
 
     $posts = $postController->index($selectedPage);
+
+    $_SESSION['currentPage'] = $selectedPage;
 
     $_SESSION['posts'] = $posts;
     header('Location: ../views/social/home.php?page=' . $selectedPage);
