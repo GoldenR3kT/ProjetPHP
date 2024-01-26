@@ -118,23 +118,31 @@ class User
     }
 
 
-    public static function updateProfile($userId, $pseudo, $email, $newPassword, $profileImage)
+    public static function updateProfile($user,$userId, $pseudo, $email, $newPassword, $profileImage)
     {
         $db = include('../Database.php');
 
         print_r($newPassword);
         // Vérifier si un nouveau mot de passe est fourni et le hacher si nécessaire
-        if (!empty($newPassword)) {
+        if ($newPassword) {
             $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
         } else {
             // Si aucun nouveau mot de passe n'est fourni, conserver le mot de passe existant
-            $hashedPassword = null; // Ou récupérez le mot de passe existant depuis la base de données
+            $hashedPassword = $user->password; // Ou récupérez le mot de passe existant depuis la base de données
         }
 
-
+        if(!$profileImage){
+            $profileImage = $user->img;
+        }
         // Préparer et exécuter la requête SQL
         $stmt = $db->prepare("UPDATE USERS SET pseudo = ?, Email = ?, MDP = ?, img = ? WHERE IDuser = ?");
         $stmt->execute([$pseudo, $email, $hashedPassword, $profileImage, $userId]);
+
+        $user->id = $userId;
+        $user->pseudo = $pseudo;
+        $user->email = $email;
+        $user->img = $profileImage;
+
     }
 
 

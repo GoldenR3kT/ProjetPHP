@@ -1,5 +1,7 @@
 <!-- app/views/auth/login.php -->
-
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,13 +11,15 @@
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
-<h1>MyGram</h1>
+<h1><a href="login.php" id="home" style="text-decoration: none; color: black;">MyGram</a></h1>
 
 <div class="container">
     <h2>Connexion</h2>
 
-    <?php if (isset($error)): ?>
-        <div class="alert alert-danger"><?php echo $error; ?></div>
+    <?php
+    if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger"><?php echo $_SESSION['error']; ?></div>
+        <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
     <form method="post" action="../../controllers/process.php">

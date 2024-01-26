@@ -48,7 +48,7 @@ session_start();
 
         <p>
             <label for="content">Description:</label>
-            <textarea name="content" rows="4" required></textarea>
+            <textarea name="content" rows="4"></textarea>
         </p>
 
         <p>

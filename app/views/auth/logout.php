@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
-<h1>MyGram</h1>
+<h1><a href="login.php" id="home" style="text-decoration: none; color: black;">MyGram</a></h1>
 
 <div class="container">
     <h2>Déconnexion</h2>

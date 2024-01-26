@@ -5,19 +5,31 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="../../logout_icon.css">
-    <link rel="stylesheet" href="../../trashcan_icon.css">
-</head>
+    <head>
+        <link rel="stylesheet" href="../../style.css">
+        <link rel="stylesheet" href="../../friends_icon.css">
+        <link rel="stylesheet" href="../../logout_icon.css">
+        <link rel="stylesheet" href="../../profil_icon.css">
+        <link rel="stylesheet" href="../../trashcan_icon.css">
+    </head>
 <body>
+<div class="profile-button button">
+    <form action="../../controllers/process.php" method="post">
+        <button type="submit" name="profile"><i class="gg-profile"></i></button>
+    </form>
+</div>
 <div class="logout-button button">
     <form action="../../controllers/process.php" method="post">
         <button type="submit" name="logout"><i class="gg-log-out"></i></button>
     </form>
 </div>
+
+<div class="manage-user-button button" style="position: absolute; top: 10px; left: 10px;">
+    <form action="../../controllers/process.php" method="post">
+        <button type="submit" name="manage_users">AllUsers</button>
+    </form>
+</div>
+
 <h1><a href="admin_home.php" id="home" style="text-decoration: none; color: red;">AdminGram</a></h1>
 
 <div class="container">

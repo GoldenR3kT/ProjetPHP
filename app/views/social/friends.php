@@ -33,53 +33,55 @@ if (!isset($_SESSION['user_id'])) {
 </div>
 <h1><a href="home.php" id="home" style="text-decoration: none; color: black;">MyGram</a></h1>
 
-    <title>Friends</title>
+<title>Friends</title>
 </head>
-<h1>Friends List</h1>
+
 <div class="container">
-<?php
-if (isset($_SESSION['friends']) && !empty($_SESSION['friends'])): ?>
-    <ul>
-        <?php foreach ($_SESSION['friends'] as $friend): ?>
-            <li>
-                <?php echo $friend['Nom'] . ' ' . $friend['Prenom']. ' ' . ' Pseudo:' .$friend['pseudo']; ?>
-                <form action="../../controllers/process.php" method="post">
-                    <input type="hidden" name="friend_id_to_remove" value="<?php echo $friend['IDuser']; ?>">
-                    <button type="submit" name="remove_friend">Remove</button>
-                </form>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-<?php else: ?>
-    <p>No friends yet.</p>
-<?php endif; ?>
+    <h2>Friends List</h2>
+    <?php
+    if (isset($_SESSION['friends']) && !empty($_SESSION['friends'])): ?>
+        <ul>
+            <?php foreach ($_SESSION['friends'] as $friend): ?>
+                <li>
+                    <?php echo 'Nom: ' . $friend['Nom'] . ' Prenom: ' . $friend['Prenom'] . ' ' . ' Pseudo: ' . $friend['pseudo']; ?>
+                    <form action="../../controllers/process.php" method="post">
+                        <input type="hidden" name="friend_id_to_remove" value="<?php echo $friend['IDuser']; ?>">
+                        <button type="submit" name="remove_friend">Remove</button>
+                    </form>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else: ?>
+        <p>No friends yet.</p>
+    <?php endif; ?>
 
-<h2>Add Friends</h2>
-<!-- Form to add friends -->
-<form action="../../controllers/process.php" method="post">
-    <label for="search">Search:</label>
-    <input type="text" id="search" name="search">
-    <button type="submit" name="search_friends">Search</button>
-</form>
+    <h2>Add Friends</h2>
+    <!-- Form to add friends -->
+    <form action="../../controllers/process.php" method="post">
+        <label for="search">Search:</label>
+        <input type="text" id="search" name="search">
+        <button type="submit" name="search_friends">Search</button>
+    </form>
 
-<?php if (isset($_SESSION['search_results']) && !empty($_SESSION['search_results'])): ?>
-    <!-- Display search results -->
-    <h3>Search Results</h3>
-    <ul>
-        <?php foreach ($_SESSION['search_results'] as $result): ?>
-            <li>
+    <?php if (isset($_SESSION['search_results']) && !empty($_SESSION['search_results'])): ?>
+        <!-- Display search results -->
+        <h3>Search Results</h3>
+        <ul>
+            <?php foreach ($_SESSION['search_results'] as $result): ?>
+                <li>
 
-                <?php echo $result['Prenom']; echo"  "; echo $result['Nom']; ?>
-                <form action="../../controllers/process.php" method="post">
-                    <input type="hidden" name="friend_id" value="<?php echo $result['IDuser']; ?>">
-                    <button type="submit" name="add_friend">Add Friend</button>
-                </form>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-<?php endif; ?>
+                    <?php echo $result['Prenom'];
+                    echo "  ";
+                    echo $result['Nom']; ?>
+                    <form action="../../controllers/process.php" method="post">
+                        <input type="hidden" name="friend_id" value="<?php echo $result['IDuser']; ?>">
+                        <button type="submit" name="add_friend">Add Friend</button>
+                    </form>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 
-<p><a href="home.php">Back to Home</a></p>
 </div>
 </body>
 </html>

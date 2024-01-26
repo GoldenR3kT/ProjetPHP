@@ -182,7 +182,8 @@ label {
 
 .logout-button,
 .friends-button,
-.profile-button {
+.profile-button,
+.manage-user-button{
     position: fixed;
     z-index: 1001; /* Modifié le z-index */
 }
@@ -296,21 +297,20 @@ label {
 
 /* Ajout de style pour le bouton de gestion d'utilisateur */
 .manage-user-button {
-    position: fixed;
     top: 10px;
     left: 10px;
     z-index: 1001;
 }
 
 .manage-user-button button {
-    padding: 12px 20px;
+    display: inline-block;
+    padding: 10px;
     background-color: #3498db;
-    border: none;
     color: #fff;
     border-radius: 50%;
+    text-decoration: none;
     font-size: 18px;
     transition: background-color 0.3s ease;
-    cursor: pointer;
 }
 
 .manage-user-button button:hover {

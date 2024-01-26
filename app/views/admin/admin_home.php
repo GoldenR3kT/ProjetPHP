@@ -15,7 +15,7 @@ session_start();
 <body>
 <div class="profile-button button">
     <form action="../../controllers/process.php" method="post">
-        <button type="submit" name="logout"><i class="gg-profile"></i></button>
+        <button type="submit" name="profile"><i class="gg-profile"></i></button>
     </form>
 </div>
 <div class="logout-button button">
@@ -24,7 +24,6 @@ session_start();
     </form>
 </div>
 
-<!-- Bouton pour changer de vue -->
 <div class="manage-user-button button" style="position: absolute; top: 10px; left: 10px;">
     <form action="../../controllers/process.php" method="post">
         <button type="submit" name="manage_users">AllUsers</button>
@@ -58,8 +57,9 @@ session_start();
                 <h3><?php echo $post['titre']; ?></h3>
 
                 <?php if ($post['Img']): ?>
-                    <img src="../../../uploads/<?php echo $post['Img']; ?>" alt="Post Photo">
+                    <img class="post-image" src="../../../uploads/<?php echo $post['Img']; ?>" alt="Post Photo">
                 <?php endif; ?>
+
 
                 <p><?php echo $post['Message']; ?></p>
 
@@ -67,8 +67,7 @@ session_start();
 
                 <p>Posté par: <?php echo $post['author'];?></p>
 
-
-                <p>Date: <?php echo $post['created_at']; ?></p>
+                <p>Date: <?php echo $post['date_post']; ?></p>
 
 
                 <!-- Boutons Like, Dislike et Commentaire -->
@@ -80,14 +79,17 @@ session_start();
                     </form>
 
                     <form action="../../controllers/process.php" method="post">
+                        <input type="hidden" name="postId" value="<?php echo $post['IDpost']; ?>">
                         <button name="dislike" type="submit">Dislike</button>
-                        <span>0</span>
+                        <span><?php echo $post['aimePas']; ?></span>
                     </form>
 
                     <form action="../../controllers/process.php" method="post">
-                        <button name="comment" type="submit">Commentaire</button>
-                        <span>0</span>
+                        <input type="hidden" name="postId" value="<?php echo $post['IDpost']; ?>">
+                        <button name="admin_comment" type="submit">Commentaire</button>
+                        <span><?php echo $post['commentsCount']; ?></span>
                     </form>
+
                     <form action="../../controllers/process.php" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce post ?');">
                         <input type="hidden" name="postId" value="<?php echo $post['IDpost']; ?>">
                         <div class="delete-button">

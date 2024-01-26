@@ -2,7 +2,6 @@
 <?php
 session_start();
 
-// Vous devrez inclure vos fichiers PHP nécessaires ici, tels que les scripts de traitement
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +12,7 @@ session_start();
     <link rel="stylesheet" href="../../friends_icon.css">
     <link rel="stylesheet" href="../../logout_icon.css">
     <link rel="stylesheet" href="../../profil_icon.css">
+    <link rel="stylesheet" href="../../trashcan_icon.css">
 </head>
 <body>
 <div class="profile-button button">
@@ -25,7 +25,14 @@ session_start();
         <button type="submit" name="logout"><i class="gg-log-out"></i></button>
     </form>
 </div>
-<h1><a href="home.php" id="home" style="text-decoration: none; color: black;">MyGram</a></h1>
+
+<div class="manage-user-button button" style="position: absolute; top: 10px; left: 10px;">
+    <form action="../../controllers/process.php" method="post">
+        <button type="submit" name="manage_users">AllUsers</button>
+    </form>
+</div>
+
+<h1><a href="admin_home.php" id="home" style="text-decoration: none; color: red;">AdminGram</a></h1>
 <div class="friends-button button">
     <form action="../../controllers/process.php" method="post">
         <button type="submit" name="friends"><i class="gg-user-list"></i></button>
@@ -45,6 +52,7 @@ session_start();
             unset($_SESSION['update_profile_error']); // Supprimer la variable d'erreur après l'affichage
         }
         ?>
+
         <!-- Formulaire de modification de profil -->
         <form action="../../controllers/process.php" method="post" enctype="multipart/form-data">
             <img src="../../../uploads/<?php echo $_SESSION['img']; ?>" alt="Image de profil">

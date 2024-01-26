@@ -38,7 +38,7 @@ class AuthController extends Controller
             }
         }
         // Si l'authentification échoue, afficher un message d'erreur
-        return $this->view('auth/login', ['error' => 'Invalid email or password']);
+        return null;
 
     }
 
@@ -69,10 +69,6 @@ class AuthController extends Controller
 
         $user = new User($userData);
         $user->save(); // Enregistrement de l'utilisateur dans la base de données
-
-        // Rediriger vers la page de connexion après l'inscription
-        header('Location: ../views/auth/login.php');
-        exit;
     }
 
     // Méthode pour déconnecter l'utilisateur
