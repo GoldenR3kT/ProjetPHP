@@ -1,4 +1,4 @@
-<!-- error_view.php -->
+-- error_view.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

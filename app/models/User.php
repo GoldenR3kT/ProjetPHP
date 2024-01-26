@@ -37,7 +37,7 @@ class User
     public function save()
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("INSERT INTO USERS (Nom, Prenom, Email, MDP, Admin, tel, date_naissance,pseudo) VALUES ( ?,?, ?, ?, ?, ?, ?,?)");
+        $stmt = $db->prepare("INSERT INTO users (Nom, Prenom, Email, MDP, Admin, tel, date_naissance,pseudo) VALUES ( ?,?, ?, ?, ?, ?, ?,?)");
         $stmt->execute([$this->last_name, $this->first_name, $this->email, $this->password, $this->Admin, $this->phone, $this->birthdate, $this->pseudo]);
 
     }
@@ -47,7 +47,7 @@ class User
     public static function getByEmail($email)
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("SELECT * FROM USERS WHERE Email=?");
+        $stmt = $db->prepare("SELECT * FROM users WHERE Email=?");
         $stmt->execute([$email]);
 
         // Afficher les résultats pour le débogage
@@ -74,7 +74,7 @@ class User
     public static function getFirstNameById($id)
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("SELECT Prenom FROM USERS WHERE IDuser=?");
+        $stmt = $db->prepare("SELECT Prenom FROM users WHERE IDuser=?");
         $stmt->execute([$id]);
 
         $userData = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -92,7 +92,7 @@ class User
         $db = include('../Database.php'); // Obtenez la connexion à la base de données
 
         // Requête SQL pour rechercher des utilisateurs par nom ou prénom
-        $sql = "SELECT * FROM USERS WHERE pseudo LIKE ? ";
+        $sql = "SELECT * FROM users WHERE pseudo LIKE ? ";
         $stmt = $db->prepare($sql);
         $stmt->execute([$searchTerm]);
 
@@ -109,7 +109,7 @@ class User
     {
         $db = include('../Database.php');
 
-        $stmt = $db->prepare("SELECT * FROM USERS WHERE IDuser = ?");
+        $stmt = $db->prepare("SELECT * FROM users WHERE IDuser = ?");
         $stmt->execute([$userId]);
 
         $userData = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -122,7 +122,6 @@ class User
     {
         $db = include('../Database.php');
 
-        print_r($newPassword);
         // Vérifier si un nouveau mot de passe est fourni et le hacher si nécessaire
         if ($newPassword) {
             $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
@@ -135,7 +134,7 @@ class User
             $profileImage = $user->img;
         }
         // Préparer et exécuter la requête SQL
-        $stmt = $db->prepare("UPDATE USERS SET pseudo = ?, Email = ?, MDP = ?, img = ? WHERE IDuser = ?");
+        $stmt = $db->prepare("UPDATE users SET pseudo = ?, Email = ?, MDP = ?, img = ? WHERE IDuser = ?");
         $stmt->execute([$pseudo, $email, $hashedPassword, $profileImage, $userId]);
 
         $user->id = $userId;

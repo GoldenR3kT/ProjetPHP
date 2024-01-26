@@ -37,7 +37,7 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 
 <div class="container">
-    <h2>Friends List</h2>
+    <h2>Liste d'ami</h2>
     <?php
     if (isset($_SESSION['friends']) && !empty($_SESSION['friends'])): ?>
         <ul>
@@ -52,15 +52,15 @@ if (!isset($_SESSION['user_id'])) {
             <?php endforeach; ?>
         </ul>
     <?php else: ?>
-        <p>No friends yet.</p>
+        <p>Ajoutez des amis!</p>
     <?php endif; ?>
 
-    <h2>Add Friends</h2>
+    <h2>Ajouter un ami</h2>
     <!-- Form to add friends -->
     <form action="../../controllers/process.php" method="post">
-        <label for="search">Search:</label>
-        <input type="text" id="search" name="search">
-        <button type="submit" name="search_friends">Search</button>
+        <label for="search">Recherche:</label>
+        <input type="text" id="search" name="search" placeholder="Entrez un pseudo">
+        <button type="submit" name="search_friends">Rechercher</button>
     </form>
 
     <?php if (isset($_SESSION['search_results']) && !empty($_SESSION['search_results'])): ?>
@@ -70,9 +70,7 @@ if (!isset($_SESSION['user_id'])) {
             <?php foreach ($_SESSION['search_results'] as $result): ?>
                 <li>
 
-                    <?php echo $result['Prenom'];
-                    echo "  ";
-                    echo $result['Nom']; ?>
+                    <?php echo $result['pseudo']; ?>
                     <form action="../../controllers/process.php" method="post">
                         <input type="hidden" name="friend_id" value="<?php echo $result['IDuser']; ?>">
                         <button type="submit" name="add_friend">Add Friend</button>

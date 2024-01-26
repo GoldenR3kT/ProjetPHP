@@ -24,9 +24,9 @@ session_start();
     </form>
 </div>
 
-<div class="manage-user-button button" style="position: absolute; top: 10px; left: 10px;">
+<div class="manage-user-button button">
     <form action="../../controllers/process.php" method="post">
-        <button type="submit" name="manage_users">AllUsers</button>
+        <button type="submit" name="manage_users">Utilisateurs</button>
     </form>
 </div>
 
@@ -42,9 +42,9 @@ session_start();
 
     <!-- Barre de recherche -->
     <form action="../../controllers/process.php" method="post">
-        <label for="search">Search:</label>
-        <input type="text" name="search" id="search" placeholder="Enter title or author">
-        <button type="submit" name="search_button_posts_admin">Search</button>
+        <label for="search">Recherche:</label>
+        <input type="text" name="search" id="search" placeholder="Entrez un titre ou un auteur">
+        <button type="submit" name="search_button_posts_admin">Rechercher</button>
     </form>
 
 

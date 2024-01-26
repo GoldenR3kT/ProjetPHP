@@ -13,7 +13,6 @@ class FriendshipController
 
 
     // Méthode pour ajouter un ami
-// Dans le contrôleur FriendshipController, méthode addFriend
 
     public function addFriend($userID1, $userID2)
     {

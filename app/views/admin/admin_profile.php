@@ -26,9 +26,9 @@ session_start();
     </form>
 </div>
 
-<div class="manage-user-button button" style="position: absolute; top: 10px; left: 10px;">
+<div class="manage-user-button button">
     <form action="../../controllers/process.php" method="post">
-        <button type="submit" name="manage_users">AllUsers</button>
+        <button type="submit" name="manage_users">Utilisateurs</button>
     </form>
 </div>
 

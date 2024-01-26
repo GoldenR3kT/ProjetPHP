@@ -14,14 +14,9 @@ class PostController extends Controller
     {
         // Exemple basique de récupération des publications depuis la base de données
         $postsPerPage = 10; // Nombre de publications par page
-        print_r($currentPage);
         $offset = ($currentPage - 1) * $postsPerPage;
         // Exemple basique d'utilisation d'un modèle pour récupérer les publications
         $posts = Post::getPaginatedPosts($offset, $postsPerPage);
-
-        // Exemple basique de calcul du nombre total de pages
-        $totalPosts = Post::getTotalPosts();
-        $totalPages = ceil($totalPosts / $postsPerPage);
 
         foreach ($posts as &$post) {
             $postId = $post['IDpost'];

@@ -24,22 +24,22 @@ session_start();
     </form>
 </div>
 
-<div class="manage-user-button button" style="position: absolute; top: 10px; left: 10px;">
+<div class="manage-user-button button">
     <form action="../../controllers/process.php" method="post">
-        <button type="submit" name="manage_users">AllUsers</button>
+        <button type="submit" name="manage_users">Utilisateurs</button>
     </form>
 </div>
 
 <h1><a href="admin_home.php" id="home" style="text-decoration: none; color: red;">AdminGram</a></h1>
 
 <div class="container">
-    <h2>Users</h2>
+    <h2>Utilisateurs</h2>
 
     <!-- Barre de recherche -->
     <form action="../../controllers/process.php" method="post">
-        <label for="search">Search:</label>
-        <input type="text" name="search" id="search" placeholder="Enter username">
-        <button type="submit" name="search_button_users">Search</button>
+        <label for="search">Recherche:</label>
+        <input type="text" name="search" id="search" placeholder="Entrez un pseudo">
+        <button type="submit" name="search_button_users">Rechercher</button>
     </form>
 
     <form action="../../controllers/process.php" method="post">

@@ -1,9 +1,9 @@
 <?php
 
-$servername = "localhost"; // Adresse du serveur MySQL (peut être localhost)
-$username = "root"; // Nom d'utilisateur MySQL (par défaut, root pour XAMPP)
-$password = ""; // Mot de passe MySQL (celui que vous avez défini)
-$dbname = "projet php"; // Nom de votre base de données
+$servername = "linserv-info-01.campus.unice.fr"; // Adresse du serveur MySQL (peut être localhost)
+$username = "si112114"; // Nom d'utilisateur MySQL (par défaut, root pour XAMPP)
+$password = "si112114"; // Mot de passe MySQL (celui que vous avez défini)
+$dbname = "si112114_ProjetPHP"; // Nom de votre base de données
 
 $dsn = "mysql:host=$servername;dbname=$dbname;charset=utf8";
 

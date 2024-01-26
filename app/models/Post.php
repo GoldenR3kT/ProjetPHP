@@ -41,7 +41,7 @@ class Post
     public function save()
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("INSERT INTO POST (IDuser, Message, Img, titre, visibilite, aime, author, aimePas, date_post) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $db->prepare("INSERT INTO post (IDuser, Message, Img, titre, visibilite, aime, author, aimePas, date_post) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         // Obtenez la date actuelle au format YYYY-MM-DD
         $currentDate = date('Y-m-d');
@@ -54,7 +54,7 @@ class Post
     public static function getTotalPosts()
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("SELECT COUNT(*) AS count FROM POST");
+        $stmt = $db->prepare("SELECT COUNT(*) AS count FROM post");
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['count'];
