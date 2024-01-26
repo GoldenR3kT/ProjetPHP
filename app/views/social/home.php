@@ -70,7 +70,7 @@ session_start();
                     <form action="../../controllers/process.php" method="post">
                         <input type="hidden" name="postId" value="<?php echo $post['IDpost']; ?>">
                         <button name="comment" type="submit">Commentaire</button>
-                        <span>0</span>
+                        <span><?php echo $post['commentsCount']; ?></span>
                     </form>
                 </div>
             </div>

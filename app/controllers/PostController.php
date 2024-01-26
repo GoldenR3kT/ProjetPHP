@@ -23,6 +23,11 @@ class PostController extends Controller
         $totalPosts = Post::getTotalPosts();
         $totalPages = ceil($totalPosts / $postsPerPage);
 
+        foreach ($posts as &$post) {
+            $postId = $post['IDpost'];
+            $post['commentsCount'] = Comment::countCommentsForPost($postId);
+        }
+
         return $posts;
     }
 

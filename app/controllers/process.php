@@ -95,7 +95,13 @@ if (isset($_POST['like'])) {
     }
 
     // Mettre à jour la variable de session ou récupérer à nouveau les posts de la base de données
-    $_SESSION['posts'] = Post::getPaginatedPosts(1, 10);
+    $posts = $postController->index(1);
+    $_SESSION['posts'] = $posts;
+
+    $postId = isset($_POST['postId']) ? $_POST['postId'] : null;
+
+    $_SESSION['post'] = $postController->getPost($postId);
+    $_SESSION['comments'] = $commentaireController->getCommentsForPost($postId);
 
     // Rediriger l'utilisateur vers la même page après le traitement du bouton "like"
     header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -119,8 +125,13 @@ if (isset($_POST['dislike'])) {
 
     }
 
-    // Mettre à jour la variable de session ou récupérer à nouveau les posts de la base de données
-    $_SESSION['posts'] = Post::getPaginatedPosts(1, 10);
+    $posts = $postController->index(1);
+    $_SESSION['posts'] = $posts;
+
+    $postId = isset($_POST['postId']) ? $_POST['postId'] : null;
+
+    $_SESSION['post'] = $postController->getPost($postId);
+    $_SESSION['comments'] = $commentaireController->getCommentsForPost($postId);
 
     // Rediriger l'utilisateur vers la même page après le traitement du bouton "dislike"
     header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -302,16 +313,22 @@ if (isset($_POST['comment'])) {
 
     $_SESSION['post'] = $postController->getPost($postId);
     $_SESSION['comments'] = $commentaireController->getCommentsForPost($postId);
+
     header('Location: ../views/social/post.php');
 }
 
 if (isset($_POST['addComment'])) {
     $postId = isset($_POST['postId']) ? $_POST['postId'] : null;
-    $commentContent = isset($_POST['commentContent']) ? $_POST['commentContent'] : '';
+    $commentContent = isset($_POST['commentaire']) ? $_POST['commentaire'] : '';
 
     // Ajoutez la logique pour créer et enregistrer le commentaire
-    Comment::addComment($postId, $_SESSION['user_id'], $commentContent);
+    $commentaireController->addComment($postId, $_SESSION['user_id'], $commentContent);
 
+
+    $postId = isset($_POST['postId']) ? $_POST['postId'] : null;
+
+    $_SESSION['post'] = $postController->getPost($postId);
+    $_SESSION['comments'] = $commentaireController->getCommentsForPost($postId);
     // Rediriger l'utilisateur vers la page des commentaires après l'ajout du commentaire
     header('Location: ../views/social/post.php?id=' . $postId);
     exit;

@@ -1,8 +1,10 @@
 <?php
+require_once(ROOT_PATH . '/models/Comment.php');
+session_start();
 
 class CommController
 {
-    public function addComment($postID, $userID, $commentText)
+    public static function addComment($postID, $userID, $commentText)
     {
         // Création d'une instance de la classe Comment avec les données fournies
         $commentData = [
@@ -19,15 +21,18 @@ class CommController
 
     // Vous pouvez ajouter d'autres méthodes pour d'autres actions liées aux commentaires
 
-    // Par exemple, pour récupérer tous les commentaires d'un post spécifique
+
     public function getCommentsForPost($postID)
     {
         $db = include('../Database.php');
-        $stmt = $db->prepare("SELECT * FROM COMMENTS WHERE IDpost = ?");
+        $stmt = $db->prepare("SELECT commentaire.*, users.pseudo AS auteur FROM commentaire INNER JOIN users ON commentaire.IDuser = users.IDuser WHERE IDpost = ?");
         $stmt->execute([$postID]);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
+
 }
 
 

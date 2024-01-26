@@ -77,14 +77,14 @@ $comments = $_SESSION['comments'];
 foreach ($comments as $comment): ?>
     <div class="comment">
         <h3><?php echo $comment['auteur']; ?>:</h3>
-        <p><?php echo $comment['contenu']; ?></p>
+        <p><?php echo $comment['commentaire']; ?></p>
     </div>
 <?php endforeach; ?>
 
 <!-- Ajouter un formulaire pour permettre aux utilisateurs d'ajouter des commentaires -->
 <form action="../../controllers/process.php" method="post">
     <input type="hidden" name="postId" value="<?php echo $post['IDpost']; ?>">
-    <textarea name="commentContent" placeholder="Ajouter un commentaire"></textarea>
+    <textarea name="commentaire" placeholder="Ajouter un commentaire"></textarea>
     <button type="submit" name="addComment">Ajouter un commentaire</button>
 </form>
 </div>
